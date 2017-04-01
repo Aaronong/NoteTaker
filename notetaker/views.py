@@ -4,7 +4,7 @@ from django.shortcuts import render, HttpResponse
 
 
 def index(request):
-    return render(request, 'noteeditor.html')
+    return render(request, 'tags.html')
 
 
 def notebooks(request):
