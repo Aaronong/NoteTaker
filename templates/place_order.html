@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head-extras %}
+    <!-- Custom styles for this page -->
+    <link href="{% static "stocks/dashboard.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-8 col-sm-offset-2 col-md-10 col-md-offset-1 main">
+
+  <h2 class="sub-header">Craigslist For Stocks</h2>
+
+  <form action="{% url 'place_order' %}" method="post">
+
+  	{% csrf_token %}
+
+  	<p>{{ form.quantity.label_tag }} {{ form.quantity }}</p>
+      {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+      {% endif %}
+    <p>{{ form.is_sell.label_tag }} {{ form.is_sell }} </p>
+    <p><label for="id_stock_type">ETF Ticker </label>{{ form.stock_type }} </p>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+      Submit Order
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Order Confimation</h4>
+          </div>
+          <div class="modal-body">
+            Make this order?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-default btn-success" type="submit" value="Submit" onclick="location.href="{% url 'place_order' %}" ">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head-extras %}
+	<!-- Custom styles for this page -->
+	<link href="{% static "priceisright/signin.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+	<div class="col-sm-8 col-sm-offset-2 col-md-10 col-md-offset-1 main">
+
+      <form class="form-signin" method="post" action="{% url 'login' %}">
+      	{% csrf_token %}
+        <h2 class="form-signin-heading">Please sign in</h2>
+
+        {% if form.errors %}
+			<p>Your username and password didn't match. Please try again.</p>
+		{% endif %}
+
+		{% if next %}
+			{% if user.is_authenticated %}
+				<p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+			{% else %}
+				<p>Please login to see this page.</p>
+			{% endif %}
+		{% endif %}
+
+
+        <label for="{{ form.username.id_for_label }}" class="sr-only">Username</label>
+        {{ form.username }}
+        <label for="{{ form.password.id_for_label }}" class="sr-only">Password</label>
+        {{ form.password }}
+        <button class="btn btn-lg btn-success btn-block" type="submit" value="Login">Sign in</button>
+        <input type="hidden" name="next" value="{{ next }}"/>
+      </form>
+
+    </div> 
+
+{% endblock %}

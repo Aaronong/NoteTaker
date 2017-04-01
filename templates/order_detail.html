@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head-extras %}
+    <!-- Custom styles for this page -->
+    <link href="{% static "stocks/dashboard.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div>
+<h2 class="sub-header">Order: {{ parent_order.quantity }} x {{ parent_order.stock_type }} 
+{% if parent_order.status != 'C' and parent_order.status != 'X' %} 
+  <div class="btn-toolbar inline" id="order-buttons" role="toolbar">
+    {% if parent_order.status == 'S' %} 
+      <form id="resume" action="{% url 'order_detail' parent_order.id %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="P">
+      </form>
+      <button class="btn btn-success" type="submit" form="resume">Resume</button>
+    {% endif %}
+    {% if parent_order.status == 'P' %} 
+      <form id="pause" action="{% url 'order_detail' parent_order.id %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="S">
+      </form>
+      <button class="btn btn-info" type="submit" form="pause">Pause</button>
+    {% endif %}
+    <form id="cancel" action="{% url 'order_detail' parent_order.id %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="status" value="X">
+    </form>
+    <button class="btn btn-danger" type="submit" form="cancel">Cancel</button>
+  </div>
+{% endif %} 
+</h2>
+  
+<p id="stats"> <b>Average Price:</b> {{ average_price }}, <b>Gross Sale Price:</b> {{ total_price }}, <b>Total Quantity Sold:</b> {{ total_sold }} </p>
+</div>
+
+<div class="progress">
+
+  <div id="progress-{{parent_order.id}}" data-id="{{order.id}}" class="progress-bar 
+      {% if parent_order.status == 'P' %} 
+          progress-bar-success progress-bar-striped active
+      {% endif %}
+      {% if parent_order.status == 'C' %} 
+          progress-bar-success progress-bar
+      {% endif %}
+      {% if parent_order.status == 'F' %} 
+          progress-bar-danger progress-bar-striped active
+      {% endif %}" role="progressbar"
+    aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="min-width:4em; width:{{progress}}%">
+    {{progress}}%
+
+  </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped" id="children-{{parent_order.id}}">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Child Order Number</th>
+          <th>Quantity</th>
+          <th>Status</th>
+          <th>Attempted Price (USD)</th>
+        </tr>
+      </thead>
+        {% if child_orders %}
+        <tbody>
+            {% for co in child_orders %}
+                {% if co.is_successful %} 
+                    <tr class="success">
+                {% else %}
+                    <tr class="danger">
+                {% endif %}
+                    <td> {{ co.time_executed }} EST
+                    <td class="child-id"> {{ co.id }}
+                    <td> {{ co.quantity }}
+                    <td> {% if co.is_successful %} 
+                            SUCCEEDED
+                        {% else %}
+                            FAILED
+                        {% endif %}
+                    <td> {{ co.price }}
+              </tr>
+          {% endfor %}
+      </tbody>
+      {% endif %}
+  </table>
+</div>
+
+<script> 
+var parent_order_id = [{{ parent_order.id }}];
+var progress_type = "detail";
+</script>
+<script src="{% static "js/progress.js" %}" language="javascript" type="text/javascript"></script>
+
+
+{% endblock %}

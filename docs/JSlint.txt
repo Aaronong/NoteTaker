@@ -1,0 +1,200 @@
+4.1Use spaces, not tabs.
+	var remove = false;
+6.1Use spaces, not tabs.
+	function loadProgress(id){
+7.1Use spaces, not tabs.
+		var r;
+8.1Use spaces, not tabs.
+		var newprogress;
+9.1Use spaces, not tabs.
+		var newstatus;
+10.1Use spaces, not tabs.
+		var pg;
+11.1Use spaces, not tabs.
+		var selector = '#progress-' + id;
+11.18Use double quotes, not single quotes.
+		var selector = '#progress-' + id;
+12.1Use spaces, not tabs.
+		var progress_url = "/order/" + id + "/get_progress";
+13.1Use spaces, not tabs.
+		var status_url = "/order/" + id + "/get_status";
+15.1Use spaces, not tabs.
+		// get current order status, set progress bar color, etc
+16.1Use spaces, not tabs.
+		r = false;
+17.1Use spaces, not tabs.
+		$.get(status_url, function( newstatus ) {
+18.1Use spaces, not tabs.
+		  switch (newstatus) {
+19.1Use spaces, not tabs.
+		  	case 'P': //in progress
+19.11Use double quotes, not single quotes.
+		  	case 'P': //in progress
+20.1Use spaces, not tabs.
+		  		pg = 'progress-bar progress-bar-success progress-bar-striped active';
+20.12Use double quotes, not single quotes.
+		  		pg = 'progress-bar progress-bar-success progress-bar-striped active';
+21.1Use spaces, not tabs.
+		  		break;
+22.1Use spaces, not tabs.
+		  	case 'C': //completed
+22.11Use double quotes, not single quotes.
+		  	case 'C': //completed
+23.1Use spaces, not tabs.
+		  		pg = 'progress-bar progress-bar-success progress-bar';
+23.12Use double quotes, not single quotes.
+		  		pg = 'progress-bar progress-bar-success progress-bar';
+24.1Use spaces, not tabs.
+		  		r = true;
+25.1Use spaces, not tabs.
+		  		break;
+26.1Use spaces, not tabs.
+		  	case 'F': //failed
+26.11Use double quotes, not single quotes.
+		  	case 'F': //failed
+27.1Use spaces, not tabs.
+		  		pg = 'progress-bar progress-bar-danger progress-bar';
+27.12Use double quotes, not single quotes.
+		  		pg = 'progress-bar progress-bar-danger progress-bar';
+28.1Use spaces, not tabs.
+		  		break;
+29.1Use spaces, not tabs.
+		  	case 'S': //paused
+29.11Use double quotes, not single quotes.
+		  	case 'S': //paused
+30.1Use spaces, not tabs.
+		  		pg = 'progress-bar progress-bar-info progress-bar-striped active';
+30.12Use double quotes, not single quotes.
+		  		pg = 'progress-bar progress-bar-info progress-bar-striped active';
+31.1Use spaces, not tabs.
+		  		break;
+32.1Use spaces, not tabs.
+		  	case 'X': //cancelled
+32.11Use double quotes, not single quotes.
+		  	case 'X': //cancelled
+33.1Use spaces, not tabs.
+		  		pg = 'progress-bar progress-bar-danger progress-bar';
+33.12Use double quotes, not single quotes.
+		  		pg = 'progress-bar progress-bar-danger progress-bar';
+34.1Use spaces, not tabs.
+		  		break;
+35.1Use spaces, not tabs.
+		  }
+36.1Use spaces, not tabs.
+		  $(selector).attr('class', pg);
+36.22Use double quotes, not single quotes.
+		  $(selector).attr('class', pg);
+37.1Use spaces, not tabs.
+		}); 
+37.5Unexpected trailing space.
+		}); 
+39.1Use spaces, not tabs.
+		// get current order progress
+40.1Use spaces, not tabs.
+	    $.get(progress_url, function( newprogress ) {
+41.1Use spaces, not tabs.
+	      $(selector).attr('aria-valuenow', parseFloat(newprogress)).css('width',parseFloat(newprogress)+'%');
+41.25Use double quotes, not single quotes.
+	      $(selector).attr('aria-valuenow', parseFloat(newprogress)).css('width',parseFloat(newprogress)+'%');
+41.71Use double quotes, not single quotes.
+	      $(selector).attr('aria-valuenow', parseFloat(newprogress)).css('width',parseFloat(newprogress)+'%');
+41.103Use double quotes, not single quotes.
+	      $(selector).attr('aria-valuenow', parseFloat(newprogress)).css('width',parseFloat(newprogress)+'%');
+42.1Use spaces, not tabs.
+	      $(selector).html(newprogress+'%');
+42.37Use double quotes, not single quotes.
+	      $(selector).html(newprogress+'%');
+43.1Use spaces, not tabs.
+	    });
+45.1Use spaces, not tabs.
+	    // console.log("returning r " + r);
+46.1Use spaces, not tabs.
+	    return r; // can't actually return r like this, need a callback function
+47.1Use spaces, not tabs.
+	}
+49.1Use spaces, not tabs.
+	function loadChildren(id){
+50.1Use spaces, not tabs.
+		var children;
+51.1Use spaces, not tabs.
+		var child_selector = '#children-' + id + ' tr:first';
+51.24Use double quotes, not single quotes.
+		var child_selector = '#children-' + id + ' tr:first';
+51.44Use double quotes, not single quotes.
+		var child_selector = '#children-' + id + ' tr:first';
+52.1Use spaces, not tabs.
+		var child_id = parseInt(document.getElementsByClassName("child-id")[0].textContent);
+53.1Use spaces, not tabs.
+		var children_url = "/order/" + id + "/get_children/" + child_id;
+54.1Use spaces, not tabs.
+		// console.log(children_url);
+56.1Use spaces, not tabs.
+		// get current order children
+57.1Use spaces, not tabs.
+	    $.get(children_url, function( children ) {
+58.1Use spaces, not tabs.
+	    	children = JSON.parse(children);
+59.1Use spaces, not tabs.
+	    	// console.log(children);
+60.1Use spaces, not tabs.
+	    	// console.log(children.length);
+62.1Use spaces, not tabs.
+	    	for(var i=0; i<children.length; i++) {
+63.1Use spaces, not tabs.
+	    		// console.log(children[i]);
+64.1Use spaces, not tabs.
+	    		var fields = children[i]['fields'];
+64.33Use double quotes, not single quotes.
+	    		var fields = children[i]['fields'];
+65.1Use spaces, not tabs.
+	    		var child_class = fields['is_successful'] ? "success" : "danger";
+65.33Use double quotes, not single quotes.
+	    		var child_class = fields['is_successful'] ? "success" : "danger";
+66.1Use spaces, not tabs.
+	    		var child_label = fields['is_successful'] ? "SUCCEEDED" : "FAILED";
+66.33Use double quotes, not single quotes.
+	    		var child_label = fields['is_successful'] ? "SUCCEEDED" : "FAILED";
+67.1Use spaces, not tabs.
+	    		var date = new Date(fields['time_executed']);
+67.35Use double quotes, not single quotes.
+	    		var date = new Date(fields['time_executed']);
+68.1Use spaces, not tabs.
+	    		var options = {
+69.5Use spaces, not tabs.
+    				year: "numeric", month: "short",
+70.5Use spaces, not tabs.
+    				day: "numeric", hour: "2-digit", minute: "2-digit"
+71.1Use spaces, not tabs.
+				};
+72.1Use spaces, not tabs.
+	    		var date_formatted = date.toLocaleTimeString("en-us", options);
+73.1Use spaces, not tabs.
+	    		date_formatted = date_formatted.replace("AM", "a.m.");
+74.1Use spaces, not tabs.
+	    		date_formatted = date_formatted.replace("PM", "p.m.");
+75.1Use spaces, not tabs.
+	    		date_formatted = date_formatted.replace(" ", ". ");
+76.1Use spaces, not tabs.
+	    		// console.log(typeof date_formatted);
+77.1Use spaces, not tabs.
+	    		// console.log(date_formatted);
+78.1Use spaces, not tabs.
+	    		// for (var key in children[i]['fields']){
+79.1Use spaces, not tabs.
+			    //     var attrName = key;
+80.1Use spaces, not tabs.
+			    //     console.log("key: " + attrName);
+81.1Use spaces, not tabs.
+			    //     var attrValue = children[i]['fields'][key];
+82.1Use spaces, not tabs.
+			    //     console.log("value: " + attrValue);
+83.1Use spaces, not tabs.
+			    // }
+84.1Use spaces, not tabs.
+	    		$(child_selector).after(
+85.1Use spaces, not tabs.
+	    		// console.log(
+86.1Use spaces, not tabs.
+	    			"<tr class=\"" + child_class + "\"> \
+86.46Unclosed string.
+	    			"<tr class=\"" + child_class + "\"> \

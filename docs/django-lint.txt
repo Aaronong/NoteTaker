@@ -1,0 +1,32 @@
+Stocks Module
+$ django-lint stocks/
+************* Module stocks.models
+W: 22,12:ParentOrder: quantity: blank=False is implicit
+W: 24,11:ParentOrder: is_sell: blank=False is implicit
+W: 24,11:ParentOrder: is_sell: BooleanField with default=True will not be
+reflected in database
+W: 25,17:ParentOrder: time_executed: blank=False is implicit
+W: 25,17:ParentOrder: time_executed: Uses superceded auto_now or auto_now_add
+W: 26,8:ParentOrder: user: ForeignKey missing related_name
+W: 47,12:ParentOrder: progress: blank=False is implicit
+W:229,1:ParentOrder.__str__: Use __unicode__ instead of __str__
+W:173,1:ParentOrder.trade: Method should come after standard model methods
+W:234,16:ChildOrder: parent_order: ForeignKey missing related_name
+W:235,12:ChildOrder: quantity: blank=False is implicit
+W:236,17:ChildOrder: is_successful: blank=False is implicit
+W:237,9:ChildOrder: price: blank=False is implicit
+W:238,17:ChildOrder: time_executed: blank=False is implicit
+W:238,17:ChildOrder: time_executed: Uses superceded auto_now or auto_now_add
+W:240,1:ChildOrder.__str__: Use __unicode__ instead of __str__
+
+Authentication Module
+$ django-lint authentication/ 
+No problems found
+
+Main Module
+$ django-lint priceIsRight/
+************* Module priceIsRight.settings
+W:  1,0: Missing required field 'MANAGERS'
+W:  1,0: Missing required field 'ADMINS'
+W:  1,0: Missing required field 'TEMPLATE_DEBUG'
+W:  1,0: Missing required field 'MIDDLEWARE_CLASSES'
