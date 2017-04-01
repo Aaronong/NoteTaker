@@ -24,7 +24,7 @@
 
 	    <!-- Override .navbar-brand style -->
 	    <style>
-	    	.navbar-inverse .navbar-brand:hover, 
+	    	.navbar-inverse .navbar-brand:hover,
 			.navbar-inverse .navbar-brand:focus {
   			background-color: transparent;
   			color: #999999;
@@ -62,13 +62,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="notebooks">Notebooks</a>
+                    <a href="../notebooks">Notebooks</a>
                 </li>
                 <li>
-                    <a href="documents">Documents</a>
+                    <a href="../documents">Documents</a>
                 </li>
                 <li>
-                    <a href="tags">Tags</a>
+                    <a href="../tags">Tags</a>
                 </li>
                 <li>
                     <a href="#">Events</a>
@@ -106,29 +106,25 @@
 	          {% if user.is_authenticated %}
 	          <ul class="nav navbar-nav navbar-right">
 	            <li><a href="{% url 'index' %}">Home</a></li>
-	            <li><a href="{% url 'place_order' %}">Place Order</a></li>
 	            <li><a href="{% url 'logout' %}">Logout</a></li>
 	          </ul>
 	          {% endif %}
-	          
+
 	        </div>
 	      </div>
 	    </nav>
 
-	    <!--<div class="container-fluid">-->
-      	  <!--<div class="row">-->
-            <!--<div class="col-sm-8 col-sm-offset-2 col-md-10 col-md-offset-1 main">-->
+	    <div class="container-fluid">
+      	  <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 col-md-10 col-md-offset-1 main">
 
-			<!--{% if user.is_authenticated %}-->
-				<!--<h1 class="page-header">Salutations, {{ user }}</h1>-->
-			<!--{% endif %}-->
-		<!---->
-			<!--{% block content %}-->
-			<!--{% endblock %}-->
 
-			<!--</div>-->
-      	  <!--</div>-->
-     	<!--</div>-->
+			{% block content %}
+			{% endblock %}
+
+			</div>
+      	  </div>
+     	</div>
 
 	    <!-- Bootstrap core JavaScript ================================================== -->
 	    <!-- Placed at the end of the document so the pages load faster -->
