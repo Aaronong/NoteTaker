@@ -51,7 +51,14 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        Welcome Aaron
+                        Base.html
+                    </a>
+                </li>
+				<li class="sidebar-brand">
+                    <a href="#">
+						{% if user.is_authenticated %}
+                        Welcome {{ user }}
+						{% endif %}
                     </a>
                 </li>
                 <li>
@@ -108,20 +115,20 @@
 	      </div>
 	    </nav>
 
-	    <div class="container-fluid">
-      	  <div class="row">
-            <div class="col-sm-8 col-sm-offset-2 col-md-10 col-md-offset-1 main">
+	    <!--<div class="container-fluid">-->
+      	  <!--<div class="row">-->
+            <!--<div class="col-sm-8 col-sm-offset-2 col-md-10 col-md-offset-1 main">-->
 
-			{% if user.is_authenticated %}
-				<h1 class="page-header">Salutations, {{ user }}</h1>
-			{% endif %}
-		
-			{% block content %}
-			{% endblock %}
+			<!--{% if user.is_authenticated %}-->
+				<!--<h1 class="page-header">Salutations, {{ user }}</h1>-->
+			<!--{% endif %}-->
+		<!---->
+			<!--{% block content %}-->
+			<!--{% endblock %}-->
 
-			</div>
-      	  </div>
-     	</div>
+			<!--</div>-->
+      	  <!--</div>-->
+     	<!--</div>-->
 
 	    <!-- Bootstrap core JavaScript ================================================== -->
 	    <!-- Placed at the end of the document so the pages load faster -->
