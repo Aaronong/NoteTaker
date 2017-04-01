@@ -6,11 +6,10 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 @python_2_unicode_compatible
-class NoteUser(models.Model):
-    alias = models.OneToOneField(User)
+class NoteUser(User):
 
     def __str__(self):
-        return self.alias.name
+        return self.username
 
     # needs tagging and authorizing functions, also view all notebooks, docs, tags, search notes
     # view should be conditional, allowing additional functions depending on permission
@@ -59,7 +58,7 @@ class Authorization(models.Model):
 
     def __str__(self):
         choice_text = ['read', 'comment', 'write', 'author'][self.type]
-        return self.user, "is authorized to", choice_text, self.document
+        return self.user.__str__() + " is authorized to " + choice_text + " " + self.document.__str__()
 
 
 @python_2_unicode_compatible
@@ -71,7 +70,7 @@ class Note(models.Model):
     time_modified = models.DateTimeField(blank=False, auto_now_add=True)
 
     def __str__(self):
-        return "Note of id", self.pk
+        return "Note of id " + str(self.pk)
 
     # view all tags, comments, author gets permissions button
 
@@ -100,7 +99,7 @@ class Tagging(models.Model):
     )
 
     def __str__(self):
-        return self.note, "has the tag", self.tag
+        return self.note.__str__() + " has the tag " + self.tag.__str__()
 
 
 @python_2_unicode_compatible
