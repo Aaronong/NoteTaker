@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from .models import *
 
 # Create your views here.
@@ -30,11 +30,14 @@ def documents(request):
 
 
 def tags(request):
-    all_notes = Note.objects.filter(noteauthorization__user=request.user)
-    all_tags = Tags.objects.filter(tagging__note=all_notes)
+    all_tags = Tags.objects.filter(tagging__note__noteauthorization__user=request.user)
+    tag_with_notes = {}
+    for tag in all_tags:
+        tag_with_notes[tag] = Note.objects.filter(noteauthorization__user=request.user, tagging__tag=tag)
     context = {
-        'all_tags': all_tags,
+        'all_tags': tag_with_notes,
     }
+    # return HttpResponse({context})
     return render(request, 'tags.html', context)
 
 
@@ -49,3 +52,35 @@ def noteedit(request):
     }
     return render(request, 'noteeditor.html', context)
 
+
+def doc_edit(request, doc_id):
+    doc_notes = Note.objects.filter(noteauthorization__user=request.user, document=doc_id)
+    notes = {}
+    for note in doc_notes:
+        notes[note] = NoteUser.objects.filter(noteauthorization__note=note, noteauthorization__type=3)[0]
+    context = {
+        'all_notes': notes,
+    }
+    return render(request, 'noteeditor.html', context)
+
+
+def notebook_edit(request, notebook_id):
+    documents_in_notebook = Document.objects.filter(notebook=notebook_id)
+    docs = {}
+    for doc in documents_in_notebook:
+        docs[doc] = NoteUser.objects.filter(authorization__document=doc, authorization__type=3)[0]
+    context = {
+        'all_documents': docs,
+    }
+    return render(request, 'documents.html', context)
+
+
+def tag_edit(request, tag_id):
+    tag_notes = Note.objects.filter(noteauthorization__user=request.user, tagging__tag=tag_id)
+    notes = {}
+    for note in tag_notes:
+        notes[note] = NoteUser.objects.filter(noteauthorization__note=note, noteauthorization__type=3)[0]
+    context = {
+        'all_notes': notes,
+    }
+    return render(request, 'noteeditor.html', context)

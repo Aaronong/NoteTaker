@@ -10,8 +10,8 @@
     <h1>TAGS</h1>
     {% if all_tags %}
         <ul>
-        {% for tag in all_tags %}
-            <li><a href="/documents/{{ tag.id }}/"> {{ tag.tag_text }} </a></li>
+        {% for tag, notes in all_tags.items %}
+            <li><a href="/tags/{{ tag.id }}/"> {{ tag.tag_text }}</a></li>
         {% endfor %}
         </ul>
     {% else %}

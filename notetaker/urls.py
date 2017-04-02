@@ -12,6 +12,9 @@ urlpatterns = [
     url(r'^notebooks/$', views.notebooks, name='notebooks'),
     url(r'^documents/$', views.documents, name='documents'),
     url(r'^tags/$', views.tags, name='tags'),
-url(r'^noteedit/$', views.noteedit, name='NoteEdit'),
+    url(r'^notebooks/(?P<notebook_id>[0-9]+)/$', views.notebook_edit, name='notebook_edit'),
+    url(r'^documents/(?P<doc_id>[0-9]+)/$', views.doc_edit, name='doc_edit'),
+    url(r'^tags/(?P<tag_id>[0-9]+)/$', views.tag_edit, name='tag_edit'),
+    url(r'^noteedit/$', views.noteedit, name='NoteEdit'),
     url(r'^(?P<note_id>[0-9]+)/$', views.noteedit, name='NoteEdit'),
 ]
