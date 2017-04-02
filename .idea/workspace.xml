@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55e9c787-a3a6-4b62-8a22-49088d0519b1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rmdb.sh" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/stocks/migrations/0002_auto_20161026_0353.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/stocks/migrations/0003_auto_20161109_1143.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/stocks/migrations/0004_parentorder_progress.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/stocks/migrations/0005_auto_20161130_2058.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notetaker/admin.py" afterPath="$PROJECT_DIR$/notetaker/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notetaker/models.py" afterPath="$PROJECT_DIR$/notetaker/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stocks/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/stocks/migrations/0001_initial.py" />
-    </list>
+    <list default="true" id="55e9c787-a3a6-4b62-8a22-49088d0519b1" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
