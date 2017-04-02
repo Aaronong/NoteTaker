@@ -95,7 +95,7 @@ class NoteAuthorization(models.Model):
 
     def __str__(self):
         choice_text = ['read', 'comment', 'write', 'author'][self.type]
-        return self.user.__str__() + " is authorized to " + choice_text + " " + self.document.__str__()
+        return self.user.__str__() + " is authorized to " + choice_text + " " + self.note.__str__()
 
 
 @python_2_unicode_compatible

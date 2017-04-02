@@ -12,7 +12,7 @@
     {% if all_notebooks %}
         <ul>
         {% for notebook in all_notebooks %}
-            <li><a href="/notebooks/{{ notebook.id }}/">{{ notebook.title }} from owner {{notebook.owner}}</a></li>
+            <li><a href="/notebooks/{{ notebook.id }}/">{{ notebook.title }} - Authored by {{notebook.owner}}</a></li>
         {% endfor %}
         </ul>
     {% else %}

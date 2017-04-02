@@ -30,12 +30,22 @@ def documents(request):
 
 
 def tags(request):
-    all_documents = Document.objects.filter(authorization__user=request.user)
-    all_notes = Note.objects.f
-    return render(request, 'tags.html')
+    all_notes = Note.objects.filter(noteauthorization__user=request.user)
+    all_tags = Tags.objects.filter(tagging__note=all_notes)
+    context = {
+        'all_tags': all_tags,
+    }
+    return render(request, 'tags.html', context)
 
 
-#search param can be document_id, tag_search, or word search
-def noteedit(request,search_param):
-    return render(request, 'noteeditor.html',search_param)
+# search param can be document_id, tag_search, or word search
+def noteedit(request):
+    all_notes = Note.objects.filter(noteauthorization__user=request.user)
+    notes = {}
+    for note in all_notes:
+        notes[note] = NoteUser.objects.filter(noteauthorization__note=note, noteauthorization__type=3)[0]
+    context = {
+        'all_notes': notes,
+    }
+    return render(request, 'noteeditor.html', context)
 

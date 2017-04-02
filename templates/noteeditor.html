@@ -6,4 +6,15 @@
 {% endblock %}
 
 {% block content %}
+    <h2>Secret header</h2>
+    <h1>Note Editor</h1>
+    {% if all_notes %}
+        <ul>
+        {% for note, user in all_notes.items %}
+            <li><p>{{ note.note_text }}</p><a href="/documents/{{ note.id }}/">Authored by {{ user }} </a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No notebooks are available.</p>
+    {% endif %}
 {% endblock %}
