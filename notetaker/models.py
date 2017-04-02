@@ -6,6 +6,14 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 @python_2_unicode_compatible
+class TextEditor(models.Model):
+    content = models.TextField()
+
+    def __str__(self):
+        return "TextEditor"
+
+
+@python_2_unicode_compatible
 class NoteUser(User):
 
     def __str__(self):

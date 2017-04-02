@@ -11,7 +11,7 @@
 	    <meta name="author" content="">
 	    <link rel="icon" href="{% static "money.ico" %}">
 
-	    <title>The Price Is Right</title>
+	    <title>NoteTaker</title>
 
 	    <!-- Bootstrap core JS -->
 	    <link href="{% static "bootstrap/js/bootstrap.min.js" %}" rel="stylesheet">
@@ -55,7 +55,7 @@
                     </a>
                 </li>
 				<li class="sidebar-brand">
-                    <a href="#">
+                    <a href="/">
 						{% if user.is_authenticated %}
                         Welcome {{ user }}
 						{% endif %}

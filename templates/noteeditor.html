@@ -3,18 +3,97 @@
 {% load staticfiles %}
 
 {% block head-extras %}
+    <script src="http://cloud.tinymce.com/stable/tinymce.min.js?apiKey=czhbzg8tkur4g0mor3vikke1ykzcwsyqxis9vonxkeixzklx"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            height: 500,
+            menubar: false,
+            plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table contextmenu paste code'
+            ],
+            toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            content_css: '//www.tinymce.com/css/codepen.min.css'
+        });
+    </script>
 {% endblock %}
 
 {% block content %}
     <h2>Secret header</h2>
     <h1>Note Editor</h1>
+    {% with "false" as data %}
     {% if all_notes %}
-        <ul>
-        {% for note, user in all_notes.items %}
-            <li><p>{{ note.note_text }}</p><a href="/documents/{{ note.id }}/">Authored by {{ user }} </a></li>
+        {% for note, owner in all_notes.items %}
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="panel panel-primary">
+                    <div id="text{{note.id}}">
+                        <a href="javascript:;" id="toggle{{note.id}}">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div>{{ note.note_text }}</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+
+                    <div class="panel-footer">
+
+                        <div class="row">
+                            <div class ="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <a href="/profile/{{ owner.id }}/">
+                                    Authored by {{owner.0}}
+                                </a>
+                                &nbsp;&nbsp;
+                                Tags:
+                                &nbsp;
+                                {% for tag in owner.1 %}
+                                <a href="/tags/{{ tag.id }}/">
+                                    {{tag}}
+                                </a>
+                                , &nbsp
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <script>
+                $("#untoggle{{note.id}}").click(function(e) {
+                    e.preventDefault();
+                    $("#text{{note.id}}").html(<a href="javascript:;" id="toggle{{note.id}}"><div class="panel-heading"><div class="row"><div class="col-md-12"><div>{{ note.note_text }}</div></div></div></div></a>');
+
+                });
+            </script>
+
+            <script>
+                $("#toggle{{note.id}}").click(function(e) {
+                    e.preventDefault();
+                    $("#text{{note.id}}").html('<a href="javascript:;" id="untoggle{{note.id}}"><div class="panel-heading"><div class="row"><div class="col-md-12"><textarea rows="7" class="col-md-12">{{ note.note_text }}</textarea></div></div></div></a>');
+
+                });
+            </script>
+
+
         {% endfor %}
-        </ul>
     {% else %}
         <p>No notes are available.</p>
     {% endif %}
+
+
+
+    <!--<div class="row">-->
+        <!--<div class ="col-lg-12 col-md-12 col-sm-12 col-xs-12"><textarea>HIHI</textarea></div>-->
+    <!--</div>-->
+{% endwith %}
 {% endblock %}

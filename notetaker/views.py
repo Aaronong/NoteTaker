@@ -1,11 +1,14 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, render_to_response
 from .models import *
+from .forms import TextForm
+from django.template import RequestContext
 
 # Create your views here.
 
 
 def index(request):
-    return render(request, 'tags.html')
+    form = TextForm()
+    return render(request, 'index.html')
 
 
 def notebooks(request):
@@ -46,7 +49,10 @@ def noteedit(request):
     all_notes = Note.objects.filter(noteauthorization__user=request.user)
     notes = {}
     for note in all_notes:
-        notes[note] = NoteUser.objects.filter(noteauthorization__note=note, noteauthorization__type=3)[0]
+        author = NoteUser.objects.filter(noteauthorization__note=note, noteauthorization__type=3)[0]
+        tags_in_note = Tags.objects.filter(tagging__note=note, tagging__note__noteauthorization__user=request.user)
+        editing = False
+        notes[note] = (author, tags_in_note, editing)
     context = {
         'all_notes': notes,
     }
@@ -57,7 +63,10 @@ def doc_edit(request, doc_id):
     doc_notes = Note.objects.filter(noteauthorization__user=request.user, document=doc_id)
     notes = {}
     for note in doc_notes:
-        notes[note] = NoteUser.objects.filter(noteauthorization__note=note, noteauthorization__type=3)[0]
+        author = NoteUser.objects.filter(noteauthorization__note=note, noteauthorization__type=3)[0]
+        tags_in_note = Tags.objects.filter(tagging__note=note, tagging__note__noteauthorization__user=request.user)
+        editing = False
+        notes[note] = (author, tags_in_note, editing)
     context = {
         'all_notes': notes,
     }
@@ -79,7 +88,10 @@ def tag_edit(request, tag_id):
     tag_notes = Note.objects.filter(noteauthorization__user=request.user, tagging__tag=tag_id)
     notes = {}
     for note in tag_notes:
-        notes[note] = NoteUser.objects.filter(noteauthorization__note=note, noteauthorization__type=3)[0]
+        author = NoteUser.objects.filter(noteauthorization__note=note, noteauthorization__type=3)[0]
+        tags_in_note = Tags.objects.filter(tagging__note=note, tagging__note__noteauthorization__user=request.user)
+        editing = False
+        notes[note] = (author, tags_in_note,editing)
     context = {
         'all_notes': notes,
     }

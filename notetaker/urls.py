@@ -1,5 +1,5 @@
 # authentication/urls.py
-from django.conf.urls import url
+from django.conf.urls import url, include
 from notetaker import views
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
@@ -17,4 +17,6 @@ urlpatterns = [
     url(r'^tags/(?P<tag_id>[0-9]+)/$', views.tag_edit, name='tag_edit'),
     url(r'^noteedit/$', views.noteedit, name='NoteEdit'),
     url(r'^(?P<note_id>[0-9]+)/$', views.noteedit, name='NoteEdit'),
+    url(r'^tinymce/', include('tinymce.urls')),
+
 ]

@@ -1,176 +1,24 @@
-{% extends 'base.html' %}
 
-{% load staticfiles %}
-
-{% block head-extras %}
-    <!-- Custom styles for this page -->
-    <link href="{% static "stocks/dashboard.css" %}" rel="stylesheet">
-{% endblock %}
-
-{% block content %}
-
-  <h2 class="sub-header">Current Orders</h2>
-
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Sell</th>
-          <th>ETF Ticker</th>
-          <th>Quantity</th>
-          <th>Time</th>
-          <th>Progress</th>
-        </tr>
-      </thead>
-      {% if orders %}
-        <tbody>
-            {% for order in orders %}
-              {% if order.status == 'P' or order.status == 'F' %}
-              <tr id="current-{{order.id}}">
-                  <td> <a href="{% url 'order_detail' order.id %}">{{ order.id }} </a>
-                  <td> {{ order.is_sell }}
-                  <td> {{ order.stock_type }}
-                  <td> {{ order.quantity }}
-                  <td class="col-md-3"> {{ order.time_executed }} EST
-                  <td class="col-md-3"> 
-                      <div class="progress">
-                          <div id="progress-{{order.id}}" data-id="{{order.id}}" class="progress-bar 
-                          {% if order.status == 'P' %} 
-                              progress-bar-success progress-bar-striped active
-                          {% endif %}
-                          {% if order.status == 'F' %} 
-                              progress-bar-danger progress-bar-striped active
-                          {% endif %}" role="progressbar"
-                          role="progressbar" aria-valuenow="{{ order.progress }}" aria-valuemin="0" aria-valuemax="100" style="min-width:4em;width:{{ order.progress }}%"> {{ order.progress }}%
-                          </div>
-                      </div>
-              </tr>
-              {% endif %}
-            {% endfor %}
-        </tbody>
-    {% endif %}
-    </table>
-  </div>
-
-  <h2 class="sub-header">Paused Orders</h2>
-
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Sell</th>
-          <th>ETF Ticker</th>
-          <th>Quantity</th>
-          <th>Time</th>
-          <th>Progress</th>
-        </tr>
-      </thead>
-      {% if orders %}
-        <tbody>
-            {% for order in orders %}
-              {% if order.status == 'S' %}
-              <tr>
-                  <td> <a href="{% url 'order_detail' order.id %}">{{ order.id }} </a>
-                  <td> {{ order.is_sell }}
-                  <td> {{ order.stock_type }}
-                  <td> {{ order.quantity }}
-                  <td class="col-md-3"> {{ order.time_executed }} EST
-                  <td class="col-md-3"> 
-                      <div class="progress">
-                          <div id="progress-{{order.id}}" data-id="{{order.id}}" class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{ order.progress }}" aria-valuemin="0" aria-valuemax="100" style="min-width:4em;width:{{ order.progress }}%"> {{ order.progress }}%
-                          </div>
-                      </div>
-              </tr>
-              {% endif %}
-            {% endfor %}
-        </tbody>
-    {% endif %}
-    </table>
-  </div>
-
-  <h2 class="sub-header">Canceled Orders</h2>
-
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Sell</th>
-          <th>ETF Ticker</th>
-          <th>Quantity</th>
-          <th>Time</th>
-          <th>Progress</th>
-        </tr>
-      </thead>
-      {% if orders %}
-        <tbody>
-            {% for order in orders %}
-              {% if order.status == 'X' %}
-              <tr>
-                  <td> <a href="{% url 'order_detail' order.id %}">{{ order.id }} </a>
-                  <td> {{ order.is_sell }}
-                  <td> {{ order.stock_type }}
-                  <td> {{ order.quantity }}
-                  <td class="col-md-3"> {{ order.time_executed }} EST
-                  <td class="col-md-3"> 
-                      <div class="progress">
-                          <div id="progress-{{order.id}}" data-id="{{order.id}}" class="progress-bar progress-bar-danger progress-bar" role="progressbar"aria-valuenow="{{ order.progress }}" aria-valuemin="0" aria-valuemax="100" style="min-width:4em;width:{{ order.progress }}%"> {{ order.progress }}%
-                          </div>
-                      </div>
-              </tr>
-              {% endif %}
-            {% endfor %}
-        </tbody>
-    {% endif %}
-    </table>
-  </div>
-
-  <h2 class="sub-header">Completed Orders</h2>
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Sell</th>
-          <th>ETF Ticker</th>
-          <th>Quantity</th>
-          <th>Time</th>
-          <th>Average Price (USD)</th>
-        </tr>
-      </thead>
-      {% if orders %}
-        <tbody>
-            {% for order in orders %}
-                {% if order.status == 'C' %}
-                    <tr id="completed-{{order.id}}">
-                        <td> <a href="{% url 'order_detail' order.id %}">{{ order.id }} </a>
-                        <td> {{ order.is_sell }}
-                        <td> {{ order.stock_type }}
-                        <td> {{ order.quantity }}
-                        <td> {{ order.time_executed }} EST
-                        <td> {{ order.avg_price }}
-                    </tr>
-                {% endif %}
-            {% endfor %}
-        </tbody>
-    {% endif %}
-    </table>
-  </div>
-
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://cloud.tinymce.com/stable/tinymce.min.js?apiKey=czhbzg8tkur4g0mor3vikke1ykzcwsyqxis9vonxkeixzklx"></script>
   <script>
-  var parent_order_id = [];
-  var progress_type = "summary";
-  </script>
-  {% for order in orders %}
-    {% if order.status == 'P' %}
-      <script> 
-      parent_order_id.push({{ order.id }});
-      console.log(parent_order_id);
-      </script>
-    {% endif %}
-  {% endfor %}
-  <script src="{% static "js/progress.js" %}" language="javascript" type="text/javascript"></script>
-
-{% endblock %}
+  tinymce.init({
+  selector: 'textarea',
+  height: 500,
+  menubar: false,
+  plugins: [
+    'advlist autolink lists link image charmap print preview anchor',
+    'searchreplace visualblocks code fullscreen',
+    'insertdatetime media table contextmenu paste code'
+  ],
+  toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  content_css: '//www.tinymce.com/css/codepen.min.css'
+  });
+</script>
+</head>
+<body>
+  <textarea>Easy (and free!) You should check out our premium features.</textarea>
+</body>
+</html>
