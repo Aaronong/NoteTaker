@@ -118,7 +118,6 @@
       	  <div class="row">
             <div class="col-sm-8 col-sm-offset-2 col-md-10 col-md-offset-1 main">
 
-
 			{% block content %}
 			{% endblock %}
 
@@ -133,7 +132,9 @@
 		<script src="{% static "bootstrap/js/jquery.js" %}"></script>
 
 		<script>
-			$("#wrapper").toggleClass("toggled");
+			{% if user.is_authenticated %}
+				$("#wrapper").toggleClass("toggled");
+			{% endif %}
 		</script>
 
 		<script>

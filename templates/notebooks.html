@@ -6,5 +6,17 @@
 {% endblock %}
 
 {% block content %}
-<h1>NOTEBOOK PLSSS</h1>
+    <h2>Secret header</h2>
+
+    <h1>NOTEBOOKS</h1>
+    {% if all_notebooks %}
+        <ul>
+        {% for notebook in all_notebooks %}
+            <li><a href="/notebooks/{{ notebook.id }}/">{{ notebook.title }} from owner {{notebook.owner}}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No notebooks are available.</p>
+    {% endif %}
+
 {% endblock %}

@@ -6,4 +6,15 @@
 {% endblock %}
 
 {% block content %}
+    <h2>Secret header</h2>
+    <h1>DOCUMENTS</h1>
+    {% if all_documents %}
+        <ul>
+        {% for document, owner in all_documents.items %}
+            <li><a href="/documents/{{ document.id }}/">{{ document.title }} from owner {{owner}}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No notebooks are available.</p>
+    {% endif %}
 {% endblock %}

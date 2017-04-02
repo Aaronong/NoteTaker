@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
+from .models import *
 
 # Create your views here.
 
@@ -8,14 +9,29 @@ def index(request):
 
 
 def notebooks(request):
-    return render(request, 'notebooks.html')
+    all_notebooks = Notebook.objects.filter(owner=request.user)
+    context = {
+        'all_notebooks': all_notebooks,
+    }
+    # return HttpResponse({context})
+    return render(request, 'notebooks.html', context)
 
 
 def documents(request):
-    return render(request, 'documents.html')
+    all_documents = Document.objects.filter(authorization__user=request.user)
+    docs = {}
+    for doc in all_documents:
+        docs[doc] = NoteUser.objects.filter(authorization__document=doc, authorization__type=3)[0]
+    context = {
+        'all_documents': docs,
+    }
+    # return HttpResponse({context})
+    return render(request, 'documents.html', context)
 
 
 def tags(request):
+    all_documents = Document.objects.filter(authorization__user=request.user)
+    all_notes = Note.objects.f
     return render(request, 'tags.html')
 
 

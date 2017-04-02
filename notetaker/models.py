@@ -14,6 +14,8 @@ class NoteUser(User):
     # needs tagging and authorizing functions, also view all notebooks, docs, tags, search notes
     # view should be conditional, allowing additional functions depending on permission
     # create new notebook, doc, note
+    def view_all_notebooks(self):
+        return Notebook.objects.filter(owner=self.id)
 
 
 @python_2_unicode_compatible
@@ -34,7 +36,7 @@ class Document(models.Model):
     permissions = models.ManyToManyField(
         NoteUser,
         through='Authorization',
-        through_fields= ('document', 'user')
+        through_fields=('document', 'user')
     )
     time_created = models.DateTimeField(blank=False, auto_now_add=True)
     time_modified = models.DateTimeField(blank=False, auto_now_add=True)
@@ -63,16 +65,37 @@ class Authorization(models.Model):
 
 @python_2_unicode_compatible
 class Note(models.Model):
-    author = models.ForeignKey(NoteUser, on_delete=models.CASCADE)
+    # author = models.ForeignKey(NoteUser, on_delete=models.CASCADE)
     note_text = models.CharField(max_length=5000)
     document = models.ForeignKey(Document, on_delete=models.CASCADE)
     time_created = models.DateTimeField(blank=False, auto_now_add=True)
     time_modified = models.DateTimeField(blank=False, auto_now_add=True)
+    permissions = models.ManyToManyField(
+        NoteUser,
+        through='NoteAuthorization',
+        through_fields=('note', 'user')
+    )
 
     def __str__(self):
         return "Note of id " + str(self.pk)
 
     # view all tags, comments, author gets permissions button
+
+
+@python_2_unicode_compatible
+class NoteAuthorization(models.Model):
+    user = models.ForeignKey(NoteUser, on_delete=models.CASCADE)
+    type = models.IntegerField(blank=False, validators=[MinValueValidator(0), MaxValueValidator(3)])
+    note = models.ForeignKey(Note, on_delete=models.CASCADE)
+    note_initiator = models.ForeignKey(
+        NoteUser,
+        on_delete=models.CASCADE,
+        related_name="note_authorizing",
+    )
+
+    def __str__(self):
+        choice_text = ['read', 'comment', 'write', 'author'][self.type]
+        return self.user.__str__() + " is authorized to " + choice_text + " " + self.document.__str__()
 
 
 @python_2_unicode_compatible
