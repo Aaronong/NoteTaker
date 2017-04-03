@@ -11,7 +11,7 @@
     <h1>NOTEBOOKS</h1>
     {% if all_notebooks %}
 
-        <div class="row">
+
             {% for notebook in all_notebooks %}
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-primary">
@@ -39,6 +39,26 @@
                     </div>
                 </div>
             {% endfor %}
+
+
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-primary">
+                <a href="/notebooks/create/">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <i style="font-size:2.5em;" class="glyphicon glyphicon-plus"></i>
+                            </div>
+                            <div class="col-xs-10 text-right">
+                                <div>Create New Notebook</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+
+            </div>
         </div>
     {% else %}
         <p>No notebooks are available.</p>

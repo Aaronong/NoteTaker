@@ -60,6 +60,9 @@
                                 </a>
                                 , &nbsp
                                 {% endfor %}
+                                <a href="/tags/create/">
+                                    <i style="font-size:1em;" class="glyphicon glyphicon-plus"></i>
+                                </a>
 
                             </div>
                         </div>
@@ -79,7 +82,7 @@
             <script>
                 $("#toggle{{note.id}}").click(function(e) {
                     e.preventDefault();
-                    $("#text{{note.id}}").html('<a href="javascript:;" id="untoggle{{note.id}}"><div class="panel-heading"><div class="row"><div class="col-md-12"><textarea rows="7" class="col-md-12">{{ note.note_text }}</textarea></div></div></div></a>');
+                    $("#text{{note.id}}").html('<a href="javascript:;" id="untoggle{{note.id}}"><div class="panel-heading"><div class="row"><div class="col-md-12"><textarea rows="{% widthratio note.note_text|length 90 1 %}" class="col-md-12">{{ note.note_text }}</textarea></div></div></div></a>');
 
                 });
             </script>
