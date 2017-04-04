@@ -6,20 +6,23 @@
 {% endblock %}
 
 {% block content %}
+
     <h2>Secret header</h2>
 
     <h1>NOTEBOOKS</h1>
     {% if all_notebooks %}
 
+    <div clss="row">
+        {% for notebook in all_notebooks %}
 
-            {% for notebook in all_notebooks %}
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
+            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="box">
                         <a href="/notebooks/{{ notebook.id }}/">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-2">
-                                        <i style="font-size:2.5em;" class="glyphicon glyphicon-book"></i>
+                                        <i style="font-size:2.8em;" class="glyphicon glyphicon-book"></i>
                                     </div>
                                     <div class="col-xs-10 text-right">
                                         <div>{{ notebook.title }}</div>
@@ -38,12 +41,13 @@
                         </a>
                     </div>
                 </div>
-            {% endfor %}
+            </div>
+        {% endfor %}
 
     {% endif %}
 
 
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
         <div class="panel panel-primary" >
             <a data-toggle="collapse" href="#collapseExample">
                 <div class="panel-heading">
@@ -84,8 +88,10 @@
         </div>
     </div>
 
-
+    </div>
 
 
 
 {% endblock %}
+
+
