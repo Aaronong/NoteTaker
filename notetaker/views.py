@@ -70,7 +70,7 @@ def notebook_edit(request, notebook_id):
 
 
 def tags(request):
-    all_tags = Tags.objects.filter(tagging__note__noteauthorization__user=request.user)
+    all_tags = Tags.objects.filter(tagging__note__noteauthorization__user=request.user).order_by('tag_text')
     tag_with_notes = {}
     for tag in all_tags:
         tag_with_notes[tag] = Note.objects.filter(noteauthorization__user=request.user, tagging__tag=tag)
@@ -93,6 +93,12 @@ def noteedit(request):
             note_instance = Note.objects.get(pk=note_ID)
             note_instance.note_text = note_TEXT
             note_instance.save()
+
+        elif post_type == 'ppl':
+            person = request.POST.get('person')
+            authtype = request.POST.get('authtype')
+            change_note_authorization(NoteUser.objects.get(pk=person), Note.objects.get(pk=note_ID), int(authtype))
+
 
         elif post_type == 'tag':
             tag_text = request.POST.get('tagtext')
@@ -120,9 +126,11 @@ def noteedit(request):
         tags_in_note = Tags.objects.filter(tagging__note=note, tagging__note__noteauthorization__user=request.user)
         editing = False
         notes[note] = (author, tags_in_note, editing)
+    all_users = NoteUser.objects.all()
     context = {
         'all_notes': notes,
         'all_docs': all_documents,
+        'all_users': all_users,
     }
     return render(request, 'noteeditor.html', context)
 
@@ -139,6 +147,14 @@ def doc_edit(request, doc_id):
             note_instance = Note.objects.get(pk=note_ID)
             note_instance.note_text = note_TEXT
             note_instance.save()
+
+        elif post_type == 'tag':
+            tag_text = request.POST.get('tagtext')
+            thisuser = NoteUser.objects.get_by_natural_key(request.user)
+            if get_tag(tag_text):
+                create_tagging(Note.objects.get(pk=note_ID), get_tag(tag_text), thisuser)
+            else:
+                make_tag(tag_text, Note.objects.get(pk=note_ID), thisuser)
 
         elif post_type == 'tag':
             tag_text = request.POST.get('tagtext')
@@ -166,8 +182,10 @@ def doc_edit(request, doc_id):
         tags_in_note = Tags.objects.filter(tagging__note=note, tagging__note__noteauthorization__user=request.user)
         editing = False
         notes[note] = (author, tags_in_note, editing)
+    all_users = NoteUser.objects.all()
     context = {
         'all_notes': notes,
+        'all_users': all_users,
     }
     return render(request, 'noteeditor.html', context)
 
@@ -192,6 +210,15 @@ def tag_edit(request, tag_id):
             note_instance.note_text = note_TEXT
             note_instance.save()
 
+
+        elif post_type == 'tag':
+            tag_text = request.POST.get('tagtext')
+            thisuser = NoteUser.objects.get_by_natural_key(request.user)
+            if get_tag(tag_text):
+                create_tagging(Note.objects.get(pk=note_ID), get_tag(tag_text), thisuser)
+            else:
+                make_tag(tag_text, Note.objects.get(pk=note_ID), thisuser)
+
         else:
             doc_ID = request.POST.get('selectdoc')
             thisdoc = Document.objects.get(pk=doc_ID)
@@ -210,8 +237,10 @@ def tag_edit(request, tag_id):
         tags_in_note = Tags.objects.filter(tagging__note=note, tagging__note__noteauthorization__user=request.user)
         editing = False
         notes[note] = (author, tags_in_note,editing)
+    all_users = NoteUser.objects.all()
     context = {
         'all_notes': notes,
         'all_docs': all_documents,
+        'all_users': all_users,
     }
     return render(request, 'noteeditor.html', context)

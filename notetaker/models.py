@@ -12,7 +12,6 @@ def get_tag(text):
     return teggg[0]
 
 
-
 def make_tag(text, note, user):
     new_tag = Tags(tag_text=text)
     new_tag.save()
@@ -21,8 +20,31 @@ def make_tag(text, note, user):
 
 
 def create_tagging(note, tag, user):
+    is_tag = Tagging.objects.filter(tag=tag, note=note)
+    if len(is_tag) > 0:
+        return None
     new_tagging = Tagging(tag=tag, note=note, initiator=user)
     new_tagging.save()
+
+
+def change_note_authorization(user, note, type):
+    is_auth = NoteAuthorization.objects.filter(user=user, note=note)
+    if len(is_auth) > 0:
+        is_auth.type = type
+        is_auth.save()
+        return None
+    new = NoteAuthorization(user=user, note=note, type=type, note_initiator=user)
+    new.save()
+
+
+def change_authorization(user, doc, type):
+    is_auth = Authorization.objects.filter(user=user, document=doc)
+    if len(is_auth) > 0:
+        is_auth.type = type
+        is_auth.save()
+        return None
+    new = NoteAuthorization(user=user, document=doc, type=type, initiator=user)
+    new.save()
 
 
 @python_2_unicode_compatible
