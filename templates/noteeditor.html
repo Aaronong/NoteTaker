@@ -83,9 +83,35 @@
                                 </a>
                                 , &nbsp
                                 {% endfor %}
-                                <a href="/tags/create/">
+
+
+
+
+                                <a data-toggle="collapse" href="#tagadd{{note.id}}">
                                     <i style="font-size:1em;" class="glyphicon glyphicon-plus"></i>
                                 </a>
+
+                                                <div class="collapse" id="tagadd{{note.id}}">
+                                                    <div class="panel-footer">
+
+                                                                    <form class="card" method="POST">
+                                                                        <div class="card-content">
+                                                                            <div class="row">
+                                                                                {%csrf_token%}
+                                                                                <input type="hidden" name="post_type" value="tag">
+                                                                                <input type="hidden" name="noteid" value="{{ note.id }}">
+                                                                                <label for="title" style="color:#337ab7;">&nbsp;&nbsp;&nbsp;&nbsp;Tag: </label>
+                                                                                <input id="title" type="text" name="tagtext" style="background-color:white;color:#337ab7;">
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                &nbsp;&nbsp;&nbsp;
+                                                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+
+                                                    </div>
+                                                </div>
 
                             </div>
                         </div>

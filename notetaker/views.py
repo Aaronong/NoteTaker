@@ -94,6 +94,14 @@ def noteedit(request):
             note_instance.note_text = note_TEXT
             note_instance.save()
 
+        elif post_type == 'tag':
+            tag_text = request.POST.get('tagtext')
+            thisuser = NoteUser.objects.get_by_natural_key(request.user)
+            if get_tag(tag_text):
+                create_tagging(Note.objects.get(pk=note_ID), get_tag(tag_text), thisuser)
+            else:
+                make_tag(tag_text, Note.objects.get(pk=note_ID), thisuser)
+
         else:
             doc_ID = request.POST.get('selectdoc')
             thisdoc = Document.objects.get(pk=doc_ID)
@@ -131,6 +139,15 @@ def doc_edit(request, doc_id):
             note_instance = Note.objects.get(pk=note_ID)
             note_instance.note_text = note_TEXT
             note_instance.save()
+
+        elif post_type == 'tag':
+            tag_text = request.POST.get('tagtext')
+            thisuser = NoteUser.objects.get_by_natural_key(request.user)
+            if get_tag(tag_text):
+                create_tagging(Note.objects.get(pk=note_ID), get_tag(tag_text), thisuser)
+            else:
+                make_tag(tag_text, Note.objects.get(pk=note_ID), thisuser)
+
         else:
             doc_ID = doc_id
             thisdoc = Document.objects.get(pk=doc_ID)
@@ -160,9 +177,17 @@ def tag_edit(request, tag_id):
         post_type = request.POST.get('post_type')
         note_ID = request.POST.get('noteid')
         note_TEXT = request.POST.get('notetext')
+        if post_type == 'tag':
+            tag_text = request.POST.get('tagtext')
+            thisuser = NoteUser.objects.get_by_natural_key(request.user)
+            if get_tag(tag_text):
+                create_tagging(Note.objects.get(pk=note_ID), get_tag(tag_text), thisuser)
+            else:
+                make_tag(tag_text, Note.objects.get(pk=note_ID), thisuser)
+
 
         # if edit do first block else second
-        if post_type == 'edit':
+        elif post_type == 'edit':
             note_instance = Note.objects.get(pk=note_ID)
             note_instance.note_text = note_TEXT
             note_instance.save()

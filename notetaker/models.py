@@ -5,6 +5,26 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
+def get_tag(text):
+    teggg = Tags.objects.filter(tag_text=text)
+    if len(teggg) == 0:
+        return None
+    return teggg[0]
+
+
+
+def make_tag(text, note, user):
+    new_tag = Tags(tag_text=text)
+    new_tag.save()
+    new_tagging = Tagging(tag=new_tag, note=note, initiator=user)
+    new_tagging.save()
+
+
+def create_tagging(note, tag, user):
+    new_tagging = Tagging(tag=tag, note=note, initiator=user)
+    new_tagging.save()
+
+
 @python_2_unicode_compatible
 class TextEditor(models.Model):
     content = models.TextField()
@@ -117,6 +137,7 @@ class Tags(models.Model):
 
     def __str__(self):
         return self.tag_text
+
 
 
 @python_2_unicode_compatible
