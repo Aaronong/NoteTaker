@@ -26,24 +26,45 @@ def notebooks(request):
 
 
 def documents(request):
+    if request.method=='POST':
+        title = request.POST.get('title')
+        nb_title = request.POST.get('selectnotebook')
+        doc = Document(title=title, notebook=Notebook.objects.get(pk=nb_title))
+        doc.save()
+        thisuser = NoteUser.objects.get_by_natural_key(request.user)
+        author = Authorization(user=thisuser, type=3, document=doc, initiator=thisuser)
+        author.save()
+        return redirect('/documents/')
     all_documents = Document.objects.filter(authorization__user=request.user)
     docs = {}
     for doc in all_documents:
         docs[doc] = NoteUser.objects.filter(authorization__document=doc, authorization__type=3)[0]
+    all_notebooks = Notebook.objects.filter(owner=request.user)
     context = {
         'all_documents': docs,
+        'all_notebooks': all_notebooks,
     }
     # return HttpResponse({context})
     return render(request, 'documents.html', context)
 
 
 def notebook_edit(request, notebook_id):
+    if request.method=='POST':
+        title = request.POST.get('title')
+        doc = Document(title=title, notebook=Notebook.objects.get(pk=notebook_id))
+        doc.save()
+        thisuser = NoteUser.objects.get_by_natural_key(request.user)
+        author = Authorization(user=thisuser, type=3, document=doc, initiator=thisuser)
+        author.save()
+        return redirect('/notebooks/'+notebook_id+'/')
     documents_in_notebook = Document.objects.filter(notebook=notebook_id)
     docs = {}
     for doc in documents_in_notebook:
         docs[doc] = NoteUser.objects.filter(authorization__document=doc, authorization__type=3)[0]
+    curr_notebook = Notebook.objects.get(pk=notebook_id)
     context = {
         'all_documents': docs,
+        'notebook': curr_notebook,
     }
     return render(request, 'documents.html', context)
 

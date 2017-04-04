@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="55e9c787-a3a6-4b62-8a22-49088d0519b1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notetaker/views.py" afterPath="$PROJECT_DIR$/notetaker/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/documents.html" afterPath="$PROJECT_DIR$/templates/documents.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/notebooks.html" afterPath="$PROJECT_DIR$/templates/notebooks.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,7 +20,7 @@
       <file leaf-file-name="noteeditor.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/noteeditor.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
+            <state relative-caret-position="1530">
               <caret line="102" column="44" lean-forward="false" selection-start-line="102" selection-start-column="44" selection-end-line="102" selection-end-column="44" />
               <folding>
                 <element signature="e#2034#2040#0" expanded="true" />
@@ -35,36 +36,55 @@
       <file leaf-file-name="documents.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/documents.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5">
-              <caret line="33" column="30" lean-forward="false" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="notebooks.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/notebooks.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="41" column="26" lean-forward="true" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
+            <state relative-caret-position="1129">
+              <caret line="79" column="67" lean-forward="false" selection-start-line="79" selection-start-column="67" selection-end-line="79" selection-end-column="67" />
               <folding>
-                <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="e#2766#2772#0" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="e#3087#3093#0" expanded="true" />
+                <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="e#2509#2515#0" expanded="true" />
+                <element signature="e#2515#2521#0" expanded="true" />
+                <element signature="e#2521#2527#0" expanded="true" />
+                <element signature="e#2527#2533#0" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#div#0;n#div#1;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="e#3550#3556#0" expanded="true" />
+                <element signature="e#3556#3562#0" expanded="true" />
+                <element signature="e#3562#3568#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="notebooks.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/notebooks.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="329">
+              <caret line="73" column="62" lean-forward="true" selection-start-line="73" selection-start-column="62" selection-end-line="73" selection-end-column="62" />
+              <folding>
+                <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="e#2746#2752#0" expanded="true" />
+                <element signature="e#2752#2758#0" expanded="true" />
+                <element signature="e#2758#2764#0" expanded="true" />
+                <element signature="e#2764#2770#0" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="e#3085#3091#0" expanded="true" />
+                <element signature="e#3091#3097#0" expanded="true" />
+                <element signature="e#3097#3103#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/notetaker/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+            <state relative-caret-position="467">
+              <caret line="58" column="36" lean-forward="false" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="36" />
               <folding>
                 <element signature="e#0#79#0" expanded="true" />
               </folding>
@@ -75,7 +95,7 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/notetaker/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
+            <state relative-caret-position="135">
               <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
               <folding>
                 <element signature="e#25#66#0" expanded="true" />
@@ -107,7 +127,7 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/notetaker/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
+            <state relative-caret-position="-447">
               <caret line="4" column="71" lean-forward="false" selection-start-line="4" selection-start-column="71" selection-end-line="4" selection-end-column="71" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -176,10 +196,10 @@
         <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/notetaker/urls.py" />
-        <option value="$PROJECT_DIR$/templates/documents.html" />
         <option value="$PROJECT_DIR$/templates/noteeditor.html" />
-        <option value="$PROJECT_DIR$/notetaker/views.py" />
         <option value="$PROJECT_DIR$/templates/notebooks.html" />
+        <option value="$PROJECT_DIR$/templates/documents.html" />
+        <option value="$PROJECT_DIR$/notetaker/views.py" />
       </list>
     </option>
   </component>
@@ -393,7 +413,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="33" column="30" lean-forward="true" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="e#2509#2515#0" expanded="true" />
+            <element signature="e#2515#2521#0" expanded="true" />
+            <element signature="e#2521#2527#0" expanded="true" />
+            <element signature="e#2527#2533#0" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#0;n#div#1;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="e#3550#3556#0" expanded="true" />
+            <element signature="e#3556#3562#0" expanded="true" />
+            <element signature="e#3562#3568#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -402,13 +436,18 @@
         <state relative-caret-position="990">
           <caret line="66" column="69" lean-forward="true" selection-start-line="66" selection-start-column="69" selection-end-line="66" selection-end-column="69" />
           <folding>
-            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="e#2766#2772#0" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="e#3087#3093#0" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="e#2746#2752#0" expanded="true" />
+            <element signature="e#2752#2758#0" expanded="true" />
+            <element signature="e#2758#2764#0" expanded="true" />
+            <element signature="e#2764#2770#0" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="e#3085#3091#0" expanded="true" />
+            <element signature="e#3091#3097#0" expanded="true" />
+            <element signature="e#3097#3103#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -588,16 +627,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/notetaker/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="71" lean-forward="false" selection-start-line="4" selection-start-column="71" selection-end-line="4" selection-end-column="71" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stocks/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2055">
@@ -612,26 +641,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/notetaker/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#79#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/notetaker/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
-          <folding>
-            <element signature="e#25#66#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -642,7 +651,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/noteeditor.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
+        <state relative-caret-position="1530">
           <caret line="102" column="44" lean-forward="false" selection-start-line="102" selection-start-column="44" selection-end-line="102" selection-end-column="44" />
           <folding>
             <element signature="e#2034#2040#0" expanded="true" />
@@ -654,11 +663,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/documents.html">
+    <entry file="file://$PROJECT_DIR$/templates/notebooks.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5">
-          <caret line="33" column="30" lean-forward="false" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
-          <folding />
+        <state relative-caret-position="329">
+          <caret line="73" column="62" lean-forward="true" selection-start-line="73" selection-start-column="62" selection-end-line="73" selection-end-column="62" />
+          <folding>
+            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="e#2746#2752#0" expanded="true" />
+            <element signature="e#2752#2758#0" expanded="true" />
+            <element signature="e#2758#2764#0" expanded="true" />
+            <element signature="e#2764#2770#0" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="e#3085#3091#0" expanded="true" />
+            <element signature="e#3091#3097#0" expanded="true" />
+            <element signature="e#3097#3103#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -675,18 +697,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/notebooks.html">
+    <entry file="file://$PROJECT_DIR$/notetaker/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="41" column="26" lean-forward="true" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
+        <state relative-caret-position="-447">
+          <caret line="4" column="71" lean-forward="false" selection-start-line="4" selection-start-column="71" selection-end-line="4" selection-end-column="71" />
           <folding>
-            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="e#2766#2772#0" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="e#3087#3093#0" expanded="true" />
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/documents.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1129">
+          <caret line="79" column="67" lean-forward="false" selection-start-line="79" selection-start-column="67" selection-end-line="79" selection-end-column="67" />
+          <folding>
+            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#div#0;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#1;n#div#0;n#div#0;n#a#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="e#2509#2515#0" expanded="true" />
+            <element signature="e#2515#2521#0" expanded="true" />
+            <element signature="e#2521#2527#0" expanded="true" />
+            <element signature="e#2527#2533#0" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#0;n#div#1;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="e#3550#3556#0" expanded="true" />
+            <element signature="e#3556#3562#0" expanded="true" />
+            <element signature="e#3562#3568#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/notetaker/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+          <folding>
+            <element signature="e#25#66#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/notetaker/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="58" column="36" lean-forward="false" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#79#0" expanded="true" />
           </folding>
         </state>
       </provider>

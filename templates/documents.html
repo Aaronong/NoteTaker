@@ -11,13 +11,13 @@
     {% if all_documents %}
 
         {% for document, owner in all_documents.items %}
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
                 <div class="panel panel-primary">
                     <a href="/documents/{{ document.id }}/">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-2">
-                                    <i style="font-size:2.5em;" class="glyphicon glyphicon-file"></i>
+                                    <i style="font-size:2.8em;" class="glyphicon glyphicon-file"></i>
                                 </div>
                                 <div class="col-xs-10 text-right">
                                     <div>{{ document.title }}</div>
@@ -35,29 +35,66 @@
                     </a>
                 </div>
             </div>
+
         {% endfor %}
 
 
 
     {% endif %}
 
-
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-primary">
-            <a href="/documents/create/">
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+        <div class="panel panel-primary" >
+            <a data-toggle="collapse" href="#collapseExample">
                 <div class="panel-heading">
+
                     <div class="row">
                         <div class="col-xs-2">
-                            <i style="font-size:2.5em;" class="glyphicon glyphicon-plus"></i>
+                            <i style="font-size:2.8em; color:#337ab7;" class="glyphicon glyphicon-plus"></i>
                         </div>
                         <div class="col-xs-10 text-right">
-                            <div>Create New Document</div>
+                            <p style="color:#337ab7;">Create New Document</p>
                         </div>
                     </div>
+
                 </div>
             </a>
 
 
+            <div class="collapse" id="collapseExample">
+                <div class="panel-footer">
+
+                    <form class="card" method="POST">
+                        <div class="card-content">
+                            <div class="row">
+                                {%csrf_token%}
+                                <label for="title" style="color:#337ab7;">&nbsp;&nbsp;&nbsp;&nbsp;Title: </label>
+                                <input id="title" type="text" name="title" style="background-color:white;color:#337ab7;">
+                            </div>
+
+                            {% if all_notebooks%}
+                            <div class="row">
+                                <div class="col-xs-8 col-lg-2">
+                                    <label for="title" style="color:#337ab7;">Notebook: </label>
+                                    <select class="selectpicker" id="selectnotebook" name="selectnotebook" title="choose a notebook">
+                                        {% for nb in all_notebooks %}
+                                            <option value="{{ nb.id }}">{{ nb }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            <div class="row">
+                                &nbsp;&nbsp;&nbsp;
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
         </div>
     </div>
+
 {% endblock %}
