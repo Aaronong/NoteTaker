@@ -40,29 +40,52 @@
                 </div>
             {% endfor %}
 
+    {% endif %}
 
 
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <a href="/notebooks/create/">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-2">
-                                <i style="font-size:2.5em;" class="glyphicon glyphicon-plus"></i>
-                            </div>
-                            <div class="col-xs-10 text-right">
-                                <div>Create New Notebook</div>
-                            </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary" >
+            <a data-toggle="collapse" href="#collapseExample">
+                <div class="panel-heading">
+
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <i style="font-size:2.5em; color:#337ab7;" class="glyphicon glyphicon-plus"></i>
+                        </div>
+                        <div class="col-xs-10 text-right">
+                            <p style="color:#337ab7;">Create New Notebook</p>
                         </div>
                     </div>
-                </a>
+
+                </div>
+            </a>
 
 
-            </div>
+                <div class="collapse" id="collapseExample">
+                    <div class="panel-footer">
+
+                                    <form class="card" method="POST">
+                                        <div class="card-content">
+                                            <div class="row">
+                                                {%csrf_token%}
+                                                <label for="title" style="color:#337ab7;">&nbsp;Title: </label>
+                                                <input id="title" type="text" name="title" style="background-color:white;color:#337ab7;">
+                                            </div>
+                                            <div class="row">
+                                                &nbsp;
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                    </div>
+                </div>
+
         </div>
-    {% else %}
-        <p>No notebooks are available.</p>
-    {% endif %}
+    </div>
+
+
+
 
 
 {% endblock %}

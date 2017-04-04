@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, render_to_response
+from django.shortcuts import render, HttpResponse, render_to_response, redirect
 from .models import *
 from .forms import TextForm
 from django.template import RequestContext
@@ -12,6 +12,11 @@ def index(request):
 
 
 def notebooks(request):
+    if request.method=='POST':
+        title = request.POST.get('title')
+        nb = Notebook(title=title, owner=NoteUser.objects.get_by_natural_key(request.user))
+        nb.save()
+        return redirect('/')
     all_notebooks = Notebook.objects.filter(owner=request.user)
     context = {
         'all_notebooks': all_notebooks,
@@ -29,6 +34,17 @@ def documents(request):
         'all_documents': docs,
     }
     # return HttpResponse({context})
+    return render(request, 'documents.html', context)
+
+
+def notebook_edit(request, notebook_id):
+    documents_in_notebook = Document.objects.filter(notebook=notebook_id)
+    docs = {}
+    for doc in documents_in_notebook:
+        docs[doc] = NoteUser.objects.filter(authorization__document=doc, authorization__type=3)[0]
+    context = {
+        'all_documents': docs,
+    }
     return render(request, 'documents.html', context)
 
 
@@ -71,17 +87,6 @@ def doc_edit(request, doc_id):
         'all_notes': notes,
     }
     return render(request, 'noteeditor.html', context)
-
-
-def notebook_edit(request, notebook_id):
-    documents_in_notebook = Document.objects.filter(notebook=notebook_id)
-    docs = {}
-    for doc in documents_in_notebook:
-        docs[doc] = NoteUser.objects.filter(authorization__document=doc, authorization__type=3)[0]
-    context = {
-        'all_documents': docs,
-    }
-    return render(request, 'documents.html', context)
 
 
 def tag_edit(request, tag_id):
