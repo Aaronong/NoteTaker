@@ -3,21 +3,14 @@
 {% load staticfiles %}
 
 {% block head-extras %}
-    <script src="http://cloud.tinymce.com/stable/tinymce.min.js?apiKey=czhbzg8tkur4g0mor3vikke1ykzcwsyqxis9vonxkeixzklx"></script>
-    <script>
-        tinymce.init({
-            selector: 'textarea',
-            height: 500,
-            menubar: false,
-            plugins: [
-            'advlist autolink lists link image charmap print preview anchor',
-            'searchreplace visualblocks code fullscreen',
-            'insertdatetime media table contextmenu paste code'
-            ],
-            toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-            content_css: '//www.tinymce.com/css/codepen.min.css'
-        });
-    </script>
+<style>
+[data-toggle="collapse"].collapsed .if-not-collapsed {
+  display: none;
+}
+[data-toggle="collapse"]:not(.collapsed) .if-collapsed {
+  display: none;
+}
+</style>
 {% endblock %}
 
 {% block content %}
@@ -30,18 +23,48 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="panel panel-primary">
                     <div id="text{{note.id}}">
-                        <a href="javascript:;" id="toggle{{note.id}}">
+
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-md-12">
+                                        <a data-toggle="collapse" class="collapsed" href="#collapseExample{{note.id}}" >
+                                                    <span class="if-collapsed">{{ note.note_text }}</span>
+                                                    <span class="if-not-collapsed"> </span>
+                                        </a>
 
-                                        <div>{{ note.note_text }}</div>
+
+                                                   <div class="collapse" id="collapseExample{{note.id}}">
+
+
+                                                            <form class="card" method="POST">
+                                                                <div class="card-content">
+                                                                    <div class="row">
+                                                                        {%csrf_token%}
+                                                                        <!--<label for="title" style="color:#337ab7;">&nbsp;&nbsp;&nbsp;&nbsp;Title: </label>-->
+                                                                        <!--<input id="title" type="text" name="title" style="background-color:white;color:#337ab7;">-->
+                                                                        <input type="hidden" name="post_type" value="edit">
+                                                                        <input type="hidden" name="noteid" value="{{ note.id }}">
+                                                                        <textarea class="form-control" name="notetext" id="notetext" rows="{% widthratio note.note_text|length 120 1 %}" style="resize: vertical;">{{note.note_text}}</textarea>
+
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        &nbsp;&nbsp;&nbsp;
+                                                                        <button type="submit" class="btn btn-primary">Save</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+
+
+                                                </div>
+
+
 
                                     </div>
                                 </div>
                             </div>
-                        </a>
+
                     </div>
+
 
 
                     <div class="panel-footer">
@@ -71,48 +94,89 @@
                 </div>
             </div>
 
-            <script>
-                $("#untoggle{{note.id}}").click(function(e) {
-                    e.preventDefault();
-                    $("#text{{note.id}}").html(<a href="javascript:;" id="toggle{{note.id}}"><div class="panel-heading"><div class="row"><div class="col-md-12"><div>{{ note.note_text }}</div></div></div></div></a>');
-
-                });
-            </script>
-
-            <script>
-                $("#toggle{{note.id}}").click(function(e) {
-                    e.preventDefault();
-                    $("#text{{note.id}}").html('<a href="javascript:;" id="untoggle{{note.id}}"><div class="panel-heading"><div class="row"><div class="col-md-12"><textarea rows="{% widthratio note.note_text|length 90 1 %}" class="col-md-12">{{ note.note_text }}</textarea></div></div></div></a>');
-
-                });
-            </script>
-
 
         {% endfor %}
 
     {% endif %}
 
+
+
+
+
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="panel panel-primary">
-                    <div>
-                        <a href="/create_new">
+                    <div id="text">
+
                             <div class="panel-heading">
                                 <div class="row">
-                                    <div class="col-md-12" style="text-align:center;">
-                                        <i style="font-size:2.5em;" class="glyphicon glyphicon-plus"></i>
-                                        <div>Create New Note</div>
+                                    <div class="col-md-12">
+                                        <a data-toggle="collapse" class="collapsed" href="#collapseExample{{note.id}}" >
+                                                    <span class="if-collapsed">
+
+                                                        <div class="row">
+                                                            <div class="col-md-12" style="text-align:center;">
+                                                                <i style="font-size:2.5em;" class="glyphicon glyphicon-plus"></i>
+                                                                <div>Create New Note</div>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </span>
+                                                    <span class="if-not-collapsed"> </span>
+                                        </a>
+
+
+                                                   <div class="collapse" id="collapseExample">
+
+
+                                                            <form class="card" method="POST">
+                                                                <div class="card-content">
+                                                                    <div class="row">
+                                                                        {%csrf_token%}
+                                                                        <!--<label for="title" style="color:#337ab7;">&nbsp;&nbsp;&nbsp;&nbsp;Title: </label>-->
+                                                                        <!--<input id="title" type="text" name="title" style="background-color:white;color:#337ab7;">-->
+                                                                        <input type="hidden" name="post_type" value="new">
+                                                                        <input type="hidden" name="noteid" value="{{ note.id }}">
+                                                                        <textarea class="form-control" name="notetext" rows="5" style="resize: vertical;">{{note.note_text}}</textarea>
+
+                                                                        {% if all_docs %}
+                                                                        <div class="row">
+                                                                            <div class="col-xs-8 col-lg-2">
+                                                                                <label for="selectdoc" style="color:#337ab7;">Document: </label>
+                                                                                <select class="selectpicker" id="selectdoc" name="selectdoc" title="choose a notebook">
+                                                                                    {% for doc in all_docs %}
+                                                                                        <option value="{{ doc.id }}">{{ doc }}</option>
+                                                                                    {% endfor %}
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        {% else %}
+
+                                                                        THIS IS WAR
+                                                                        {% endif %}
+
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        &nbsp;&nbsp;&nbsp;
+                                                                        <button type="submit" class="btn btn-primary">Save</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+
+
+                                                </div>
+
+
 
                                     </div>
                                 </div>
                             </div>
-                        </a>
+
                     </div>
+
 
                 </div>
             </div>
 
-    <!--<div class="row">-->
-        <!--<div class ="col-lg-12 col-md-12 col-sm-12 col-xs-12"><textarea>HIHI</textarea></div>-->
-    <!--</div>-->
 {% endwith %}
 {% endblock %}

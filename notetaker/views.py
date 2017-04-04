@@ -83,8 +83,30 @@ def tags(request):
 
 # search param can be document_id, tag_search, or word search
 def noteedit(request):
+    if request.method=='POST':
+        post_type = request.POST.get('post_type')
+        note_ID = request.POST.get('noteid')
+        note_TEXT = request.POST.get('notetext')
+
+        # if edit do first block else second
+        if post_type == 'edit':
+            note_instance = Note.objects.get(pk=note_ID)
+            note_instance.note_text = note_TEXT
+            note_instance.save()
+
+        else:
+            doc_ID = request.POST.get('selectdoc')
+            thisdoc = Document.objects.get(pk=doc_ID)
+            new_note = Note(note_text=note_TEXT, document=thisdoc)
+            new_note.save()
+            thisuser = NoteUser.objects.get_by_natural_key(request.user)
+            author = NoteAuthorization(user=thisuser, type=3, note=new_note, note_initiator=thisuser)
+            author.save()
+
+        return redirect('/noteedit/')
     all_notes = Note.objects.filter(noteauthorization__user=request.user)
     notes = {}
+    all_documents = Document.objects.filter(authorization__user=request.user)
     for note in all_notes:
         author = NoteUser.objects.filter(noteauthorization__note=note, noteauthorization__type=3)[0]
         tags_in_note = Tags.objects.filter(tagging__note=note, tagging__note__noteauthorization__user=request.user)
@@ -92,11 +114,34 @@ def noteedit(request):
         notes[note] = (author, tags_in_note, editing)
     context = {
         'all_notes': notes,
+        'all_docs': all_documents,
     }
     return render(request, 'noteeditor.html', context)
 
 
 def doc_edit(request, doc_id):
+
+    if request.method=='POST':
+        post_type = request.POST.get('post_type')
+        note_ID = request.POST.get('noteid')
+        note_TEXT = request.POST.get('notetext')
+
+        # if edit do first block else second
+        if post_type == 'edit':
+            note_instance = Note.objects.get(pk=note_ID)
+            note_instance.note_text = note_TEXT
+            note_instance.save()
+        else:
+            doc_ID = doc_id
+            thisdoc = Document.objects.get(pk=doc_ID)
+            new_note = Note(note_text=note_TEXT, document=thisdoc)
+            new_note.save()
+            thisuser = NoteUser.objects.get_by_natural_key(request.user)
+            author = NoteAuthorization(user=thisuser, type=3, note=new_note, note_initiator=thisuser)
+            author.save()
+
+        return redirect('/documents/'+doc_id+'/')
+
     doc_notes = Note.objects.filter(noteauthorization__user=request.user, document=doc_id)
     notes = {}
     for note in doc_notes:
@@ -111,8 +156,30 @@ def doc_edit(request, doc_id):
 
 
 def tag_edit(request, tag_id):
+    if request.method=='POST':
+        post_type = request.POST.get('post_type')
+        note_ID = request.POST.get('noteid')
+        note_TEXT = request.POST.get('notetext')
+
+        # if edit do first block else second
+        if post_type == 'edit':
+            note_instance = Note.objects.get(pk=note_ID)
+            note_instance.note_text = note_TEXT
+            note_instance.save()
+
+        else:
+            doc_ID = request.POST.get('selectdoc')
+            thisdoc = Document.objects.get(pk=doc_ID)
+            new_note = Note(note_text=note_TEXT, document=thisdoc)
+            new_note.save()
+            thisuser = NoteUser.objects.get_by_natural_key(request.user)
+            author = NoteAuthorization(user=thisuser, type=3, note=new_note, note_initiator=thisuser)
+            author.save()
+
+        return redirect('/tags/'+tag_id+'/')
     tag_notes = Note.objects.filter(noteauthorization__user=request.user, tagging__tag=tag_id)
     notes = {}
+    all_documents = Document.objects.filter(authorization__user=request.user)
     for note in tag_notes:
         author = NoteUser.objects.filter(noteauthorization__note=note, noteauthorization__type=3)[0]
         tags_in_note = Tags.objects.filter(tagging__note=note, tagging__note__noteauthorization__user=request.user)
@@ -120,5 +187,6 @@ def tag_edit(request, tag_id):
         notes[note] = (author, tags_in_note,editing)
     context = {
         'all_notes': notes,
+        'all_docs': all_documents,
     }
     return render(request, 'noteeditor.html', context)
