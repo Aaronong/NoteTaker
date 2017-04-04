@@ -30,21 +30,44 @@ def create_tagging(note, tag, user):
 def change_note_authorization(user, note, type):
     is_auth = NoteAuthorization.objects.filter(user=user, note=note)
     if len(is_auth) > 0:
-        is_auth.type = type
-        is_auth.save()
+        is_auth[0].type = type
+        is_auth[0].save()
         return None
     new = NoteAuthorization(user=user, note=note, type=type, note_initiator=user)
     new.save()
 
 
+def base_note_authorization(user, note, type):
+    is_auth = NoteAuthorization.objects.filter(user=user, note=note)
+    if len(is_auth) > 0:
+        return None
+    new = NoteAuthorization(user=user, note=note, type=type, note_initiator=user)
+    new.save()
+
+
+def create_new_note(doc_id, note_text, user):
+    doc = Document.objects.get(pk=doc_id)
+    new_note = Note(note_text=note_text, document=doc)
+    new_note.save()
+    author = NoteAuthorization(user=user, type=3, note=new_note, note_initiator=user)
+    author.save()
+    all_collaborators = NoteUser.objects.filter(authorization__document=doc)
+    for collab in all_collaborators:
+        base_note_authorization(collab, new_note, 0)
+
+
 def change_authorization(user, doc, type):
     is_auth = Authorization.objects.filter(user=user, document=doc)
     if len(is_auth) > 0:
-        is_auth.type = type
+        is_auth[0].type = type
+        is_auth[0].save()
+    else:
+        is_auth = Authorization(user=user, document=doc, type=type, initiator=user)
         is_auth.save()
-        return None
-    new = NoteAuthorization(user=user, document=doc, type=type, initiator=user)
-    new.save()
+    all_notes = Note.objects.filter(document=doc)
+    for note in all_notes:
+        base_note_authorization(user, note, 0)
+
 
 
 @python_2_unicode_compatible
