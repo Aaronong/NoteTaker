@@ -13,6 +13,9 @@
 
 	    <title>NoteTaker</title>
 
+		<!--BOOTSTRAPS jquery-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
 	    <!-- Bootstrap core JS -->
 	    <link href="{% static "bootstrap/js/bootstrap.min.js" %}" rel="stylesheet">
 
@@ -30,6 +33,31 @@
   			color: #999999;
 		}
 	    </style>
+
+
+		<!-- include jquery -->
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+
+
+		<!-- include libs stylesheets -->
+		<!-- include libraries BS3 -->
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" />
+		<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+
+		<!-- include summernote -->
+		<link rel="stylesheet" href="{% static "summernote/dist/summernote.css" %}">
+		<script type="text/javascript" src="{% static "summernote/dist/summernote.js" %}"></script>
+		<script type="text/javascript">
+		sum$ = jQuery.noConflict( true );
+
+		sum$(function() {
+		  sum$('.summernote').summernote({
+			height: 200
+		  });
+		  sum$('.dropdown-toggle').dropdown()
+		});
+		</script>
+
 	    {% block head-extras %}
 	    {% endblock %}
 
@@ -39,7 +67,6 @@
 	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	    <![endif]-->
 
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 
 	</head>
 	<body>
@@ -50,9 +77,6 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#">
-                        Base.html
-                    </a>
                 </li>
 				<li class="sidebar-brand">
                     <a href="/">
@@ -62,22 +86,31 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/notebooks"><i style="font-size:1em;" class="glyphicon glyphicon-book"></i> Notebooks</a>
+                    <a href="/notebooks">
+						<i style="font-size:1em;" class="glyphicon glyphicon-book"></i>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notebooks
+					</a>
                 </li>
                 <li>
-                    <a href="/documents"><i style="font-size:1em;" class="glyphicon glyphicon-file"></i> Documents</a>
+                    <a href="/documents"><i style="font-size:1em;" class="glyphicon glyphicon-file"></i>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Documents
+					</a>
                 </li>
                 <li>
-                    <a href="/tags"><i style="font-size:1em;" class="glyphicon glyphicon-tags"></i> Tags</a>
+                    <a href="/tags"><i style="font-size:1em;" class="glyphicon glyphicon-tags"></i>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tags
+					</a>
                 </li>
                 <li>
-                    <a href="/noteedit"><i style="font-size:1em;" class="glyphicon glyphicon-edit"></i> Notes</a>
+                    <a href="/noteedit"><i style="font-size:1em;" class="glyphicon glyphicon-edit"></i>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notes
+					</a>
                 </li>
                 <li>
                     <a href="/text">Text Editor</a>
                 </li>
                 <li>
-                    <a href="#">Services</a>
+                    <a href="/summernote">Summer</a>
                 </li>
                 <li>
                     <a href="#">Contact</a>

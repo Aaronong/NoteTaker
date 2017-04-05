@@ -27,10 +27,10 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a data-toggle="collapse" class="collapsed" href="#collapseExample{{note.id}}" >
-                                                    <span class="if-collapsed">{{ note.note_text }}</span>
+                                        <div data-toggle="collapse" class="collapsed" href="#collapseExample{{note.id}}" >
+                                            <span class="if-collapsed"><font color="#000000">{{ note.note_text | safe }}</font></span>
                                                     <span class="if-not-collapsed"> </span>
-                                        </a>
+                                        </div>
 
 
                                                    <div class="collapse" id="collapseExample{{note.id}}">
@@ -44,7 +44,7 @@
                                                                         <!--<input id="title" type="text" name="title" style="background-color:white;color:#337ab7;">-->
                                                                         <input type="hidden" name="post_type" value="edit">
                                                                         <input type="hidden" name="noteid" value="{{ note.id }}">
-                                                                        <textarea class="form-control" name="notetext" id="notetext" rows="{% widthratio note.note_text|length 120 1 %}" style="resize: vertical;">{{note.note_text}}</textarea>
+                                                                        <textarea class="summernote" name="notetext" id="notetext" rows="{% widthratio note.note_text|length 120 1 %}">{{note.note_text}}</textarea>
 
                                                                     </div>
                                                                     <div class="row">
@@ -205,7 +205,7 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a data-toggle="collapse" class="collapsed" href="#collapseExample{{note.id}}" >
+                                        <a data-toggle="collapse" class="collapsed" href="#collapseExample" >
                                                     <span class="if-collapsed">
 
                                                         <div class="row">
@@ -232,7 +232,7 @@
                                                                         <!--<input id="title" type="text" name="title" style="background-color:white;color:#337ab7;">-->
                                                                         <input type="hidden" name="post_type" value="new">
                                                                         <input type="hidden" name="noteid" value="{{ note.id }}">
-                                                                        <textarea class="form-control" name="notetext" rows="5" style="resize: vertical;">{{note.note_text}}</textarea>
+                                                                        <textarea class="summernote" name="notetext" style="resize: vertical;">{{note.note_text}}</textarea>
 
                                                                         {% if all_docs %}
                                                                         <div class="row">

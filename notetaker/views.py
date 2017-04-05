@@ -10,6 +10,10 @@ def index(request):
     form = TextForm()
     return render(request, 'index.html')
 
+def summer(request):
+    form = TextForm()
+    return render(request, 'summernote.html')
+
 
 def notebooks(request):
     if request.method=='POST':
