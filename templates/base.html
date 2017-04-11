@@ -44,19 +44,6 @@
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" />
 		<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
 
-		<!-- include summernote -->
-		<link rel="stylesheet" href="{% static "summernote/dist/summernote.css" %}">
-		<script type="text/javascript" src="{% static "summernote/dist/summernote.js" %}"></script>
-		<script type="text/javascript">
-		sum$ = jQuery.noConflict( true );
-
-		sum$(function() {
-		  sum$('.summernote').summernote({
-			height: 200
-		  });
-		  sum$('.dropdown-toggle').dropdown()
-		});
-		</script>
 
 	    {% block head-extras %}
 	    {% endblock %}
@@ -84,6 +71,12 @@
                         Welcome {{ user }}
 						{% endif %}
                     </a>
+                </li>
+				<li class="sidebar-brand">
+					<img src="{% static "seekybrand.png" %}" style="width: 50%;">
+				</li>
+				<li class="sidebar-brand">
+
                 </li>
                 <li>
                     <a href="/notebooks">
@@ -131,7 +124,7 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		       <a href="#menu-toggle" class="navbar-brand" id="menu-toggle">NoteTaker</a>
+		       <a href="#menu-toggle" class="navbar-brand" id="menu-toggle">{% if user.is_authenticated %}Seeky Notes{% endif %}</a>
 		    </div>
 
 		    <!-- this section will make the actual navbar -->

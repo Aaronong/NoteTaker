@@ -11,6 +11,23 @@
   display: none;
 }
 </style>
+
+
+		<!-- include summernote -->
+		<link rel="stylesheet" href="{% static "summernote/dist/summernote.css" %}">
+		<script type="text/javascript" src="{% static "summernote/dist/summernote.js" %}"></script>
+		<script type="text/javascript">
+		sum$ = jQuery.noConflict( true );
+
+		sum$(function() {
+		  sum$('.summernote').summernote({
+			height: 200
+		  });
+		  sum$('.dropdown-toggle').dropdown()
+		});
+		</script>
+
+
 {% endblock %}
 
 {% block content %}
