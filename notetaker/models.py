@@ -1,9 +1,16 @@
 from __future__ import unicode_literals
 from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import User
+
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+
+def edit_notetext(note_instance, note_TEXT):
+        note_instance.note_text = note_TEXT
+        if type(note_instance.priority) != int:
+            note_instance.priority = 1000
+        note_instance.save()
 
 def get_tag(text):
     teggg = Tags.objects.filter(tag_text=text)
@@ -47,7 +54,9 @@ def base_note_authorization(user, note, type):
 
 def create_new_note(doc_id, note_text, user):
     doc = Document.objects.get(pk=doc_id)
-    new_note = Note(note_text=note_text, document=doc)
+    doc_notes = Note.objects.filter(noteauthorization__user=user, document=doc_id)
+    num_notes = len(doc_notes) * 1000
+    new_note = Note(note_text=note_text, document=doc, priority=num_notes)
     new_note.save()
     author = NoteAuthorization(user=user, type=3, note=new_note, note_initiator=user)
     author.save()
@@ -80,6 +89,8 @@ class TextEditor(models.Model):
 
 @python_2_unicode_compatible
 class NoteUser(User):
+    class Meta:
+        proxy = True
 
     def __str__(self):
         return self.username
@@ -143,6 +154,7 @@ class Note(models.Model):
     document = models.ForeignKey(Document, on_delete=models.CASCADE)
     time_created = models.DateTimeField(blank=False, auto_now_add=True)
     time_modified = models.DateTimeField(blank=False, auto_now_add=True)
+    priority = models.IntegerField(default=1000)
     permissions = models.ManyToManyField(
         NoteUser,
         through='NoteAuthorization',

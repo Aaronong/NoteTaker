@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head-extras %}
+
+{% endblock %}
+
+{% block content %}
+<h2>Hidden</h2>
+Welcome {{ social_user }}
+of UID {{ social_user.uid }}
+with access token {{ social_user.access_token }}
+
+
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '272396783170710',
+      xfbml      : true,
+      version    : 'v2.9'
+    });
+    <!--FB.ui(-->
+     <!--{-->
+      <!--method: 'share',-->
+      <!--href: 'https://developers.facebook.com/docs/'-->
+    <!--}, function(response){});-->
+    FB.api('/me/picture?type=normal', function(response) {
+
+          var str="<br/><b>Pic</b> : <img src='"+response.data.url+"'/>";
+          document.getElementById("profilepic").innerHTML+=str;
+
+    });
+    FB.Event.subscribe('auth.authResponseChange', function(response)
+    {
+     if (response.status === 'connected')
+    {
+        document.getElementById("profilepic").innerHTML +=  "<br>Connected to Facebook";
+        //SUCCESS
+
+    }
+    else if (response.status === 'not_authorized')
+    {
+        document.getElementById("profilepic").innerHTML +=  "<br>Failed to Connect";
+
+        //FAILED
+    } else
+    {
+        document.getElementById("profilepic").innerHTML +=  "<br>Logged Out";
+
+        //UNKNOWN ERROR
+    }
+    });
+
+    };
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+
+
+</script>
+
+<h1>HI</h1>
+<div id="profilepic"></div>
+
+<script>
+    var HttpClient = function() {
+        this.get = function(aUrl, aCallback) {
+            var anHttpRequest = new XMLHttpRequest();
+            anHttpRequest.onreadystatechange = function() {
+                if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+                    aCallback(anHttpRequest.responseText);
+            }
+
+            anHttpRequest.open( "GET", aUrl, true );
+            anHttpRequest.send( null );
+        }
+    }
+    var client = new HttpClient();
+    client.get('GET /v2.5/me HTTP/1.1
+Host: graph.facebook.com', function(response) {
+        // do something with response
+    });
+</script>
+{% endblock %}

@@ -1,26 +1,49 @@
-from django.shortcuts import render, HttpResponse, render_to_response, redirect
+from django.shortcuts import render, HttpResponse, redirect
 from .models import *
-from .forms import TextForm
-from django.template import RequestContext
+from social_django.models import UserSocialAuth, DjangoStorage, USER_MODEL
+
 
 # Create your views here.
 
 
 def index(request):
-    form = TextForm()
+    try:
+        owner = NoteUser.objects.get_by_natural_key(request.user)
+    except:
+        new_User = NoteUser(request.user)
+        new_User.save()
+    return redirect('/notebooks')
+
+
+def testbed(request):
     return render(request, 'index.html')
 
-def summer(request):
-    form = TextForm()
-    return render(request, 'summernote.html')
+
+def friends(request):
+    social_user = UserSocialAuth.objects.filter(user_id=request.user.id)
+    if len(social_user) == 0:
+        social_user = "Not a social user"
+    else:
+        social_user = social_user[0]
+
+    context = {
+        'social_user': social_user,
+    }
+    return render(request, 'friends.html', context)
 
 
 def notebooks(request):
     if request.method=='POST':
-        title = request.POST.get('title')
-        nb = Notebook(title=title, owner=NoteUser.objects.get_by_natural_key(request.user))
-        nb.save()
-        return redirect('/')
+        post_type = request.POST.get('post_type')
+        if post_type == 'new':
+            title = request.POST.get('title')
+            nb = Notebook(title=title, owner=NoteUser.objects.get_by_natural_key(request.user))
+            nb.save()
+
+        elif post_type == 'del':
+            notebook_ID = request.POST.get('notebookid')
+            Notebook.objects.get(pk=notebook_ID).delete()
+        return redirect('/notebooks')
     all_notebooks = Notebook.objects.filter(owner=request.user)
     context = {
         'all_notebooks': all_notebooks,
@@ -47,6 +70,10 @@ def documents(request):
             person = request.POST.get('person')
             authtype = request.POST.get('authtype')
             change_authorization(NoteUser.objects.get(pk=person), Document.objects.get(pk=doc_ID), int(authtype))
+
+        elif post_type == 'del':
+            doc_ID = request.POST.get('docid')
+            Document.objects.get(pk=doc_ID).delete()
 
         return redirect('/documents/')
 
@@ -82,6 +109,10 @@ def notebook_edit(request, notebook_id):
             person = request.POST.get('person')
             authtype = request.POST.get('authtype')
             change_authorization(NoteUser.objects.get(pk=person), Document.objects.get(pk=doc_ID), int(authtype))
+
+        elif post_type == 'del':
+            doc_ID = request.POST.get('docid')
+            Document.objects.get(pk=doc_ID).delete()
 
         return redirect('/notebooks/'+notebook_id+'/')
 
@@ -121,14 +152,12 @@ def noteedit(request):
         # if edit do first block else second
         if post_type == 'edit':
             note_instance = Note.objects.get(pk=note_ID)
-            note_instance.note_text = note_TEXT
-            note_instance.save()
+            edit_notetext(note_instance, note_TEXT)
 
         elif post_type == 'ppl':
             person = request.POST.get('person')
             authtype = request.POST.get('authtype')
             change_note_authorization(NoteUser.objects.get(pk=person), Note.objects.get(pk=note_ID), int(authtype))
-
 
         elif post_type == 'tag':
             tag_text = request.POST.get('tagtext')
@@ -137,6 +166,10 @@ def noteedit(request):
                 create_tagging(Note.objects.get(pk=note_ID), get_tag(tag_text), thisuser)
             else:
                 make_tag(tag_text, Note.objects.get(pk=note_ID), thisuser)
+
+        elif post_type == 'del':
+            note_ID = request.POST.get('noteid')
+            Note.objects.get(pk=note_ID).delete()
 
         else:
             doc_ID = request.POST.get('selectdoc')
@@ -171,8 +204,7 @@ def doc_edit(request, doc_id):
         # if edit do first block else second
         if post_type == 'edit':
             note_instance = Note.objects.get(pk=note_ID)
-            note_instance.note_text = note_TEXT
-            note_instance.save()
+            edit_notetext(note_instance, note_TEXT)
 
         elif post_type == 'ppl':
             person = request.POST.get('person')
@@ -186,6 +218,10 @@ def doc_edit(request, doc_id):
                 create_tagging(Note.objects.get(pk=note_ID), get_tag(tag_text), thisuser)
             else:
                 make_tag(tag_text, Note.objects.get(pk=note_ID), thisuser)
+
+        elif post_type == 'del':
+            note_ID = request.POST.get('noteid')
+            Note.objects.get(pk=note_ID).delete()
 
         else:
             doc_ID = doc_id
@@ -223,17 +259,19 @@ def tag_edit(request, tag_id):
             else:
                 make_tag(tag_text, Note.objects.get(pk=note_ID), thisuser)
 
-
         # if edit do first block else second
         elif post_type == 'edit':
             note_instance = Note.objects.get(pk=note_ID)
-            note_instance.note_text = note_TEXT
-            note_instance.save()
+            edit_notetext(note_instance, note_TEXT)
 
         elif post_type == 'ppl':
             person = request.POST.get('person')
             authtype = request.POST.get('authtype')
             change_note_authorization(NoteUser.objects.get(pk=person), Note.objects.get(pk=note_ID), int(authtype))
+
+        elif post_type == 'del':
+            note_ID = request.POST.get('noteid')
+            Note.objects.get(pk=note_ID).delete()
 
         else:
             doc_ID = request.POST.get('selectdoc')

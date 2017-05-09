@@ -6,9 +6,9 @@ from django.contrib.auth import views as auth_views
 from authentication.forms import LoginForm
 
 urlpatterns = [
-    url(r'^$', views.notebooks, name='index'),
-    url(r'^text/$', views.index, name='index'),
-    url(r'^summernote/$', views.summer, name='summernote'),
+    url(r'^$', views.index, name='index'),
+    url(r'^testbed/$', views.testbed, name='testbed'),
+    url(r'^friends/$', views.friends, name='friends'),
     url(r'^login/$', auth_views.login, {'template_name': 'login.html', 'authentication_form': LoginForm}, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
     url(r'^notebooks/$', views.notebooks, name='notebooks'),
@@ -19,6 +19,6 @@ urlpatterns = [
     url(r'^tags/(?P<tag_id>[0-9]+)/$', views.tag_edit, name='tag_edit'),
     url(r'^noteedit/$', views.noteedit, name='NoteEdit'),
     url(r'^(?P<note_id>[0-9]+)/$', views.noteedit, name='NoteEdit'),
-    url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
 
 ]

@@ -8,11 +8,114 @@
 {% endblock %}
 
 {% block content %}
-	<div class="col-sm-8 col-sm-offset-2 col-md-10 col-md-offset-1 main">
 
+
+
+
+<!--<script>-->
+  <!--window.fbAsyncInit = function() {-->
+    <!--FB.init({-->
+      <!--appId      : '272396783170710', // Set YOUR APP ID-->
+      <!--status     : true, // check login status-->
+      <!--cookie     : true, // enable cookies to allow the server to access the session-->
+      <!--xfbml      : true  // parse XFBML-->
+    <!--});-->
+
+    <!--FB.Event.subscribe('auth.authResponseChange', function(response)-->
+    <!--{-->
+     <!--if (response.status === 'connected')-->
+    <!--{-->
+        <!--document.getElementById("message").innerHTML +=  "<br>Connected to Facebook";-->
+        <!--//SUCCESS-->
+
+    <!--}-->
+    <!--else if (response.status === 'not_authorized')-->
+    <!--{-->
+        <!--document.getElementById("message").innerHTML +=  "<br>Failed to Connect";-->
+
+        <!--//FAILED-->
+    <!--} else-->
+    <!--{-->
+        <!--document.getElementById("message").innerHTML +=  "<br>Logged Out";-->
+
+        <!--//UNKNOWN ERROR-->
+    <!--}-->
+    <!--});-->
+
+    <!--};-->
+
+    <!--function Login()-->
+    <!--{-->
+
+        <!--FB.login(function(response) {-->
+           <!--if (response.authResponse)-->
+           <!--{-->
+                <!--getUserInfo();-->
+            <!--} else-->
+            <!--{-->
+             <!--console.log('User cancelled login or did not fully authorize.');-->
+            <!--}-->
+         <!--},{scope: 'email,user_photos,user_videos'});-->
+
+    <!--}-->
+
+  <!--function getUserInfo() {-->
+        <!--FB.api('/me', function(response) {-->
+
+      <!--var str="<b>Name</b> : "+response.name+"<br>";-->
+          <!--str +="<b>Link: </b>"+response.link+"<br>";-->
+          <!--str +="<b>Username:</b> "+response.username+"<br>";-->
+          <!--str +="<b>id: </b>"+response.id+"<br>";-->
+          <!--str +="<b>Email:</b> "+response.email+"<br>";-->
+          <!--str +="<input type='button' value='Get Photo' onclick='getPhoto();'/>";-->
+          <!--str +="<input type='button' value='Logout' onclick='Logout();'/>";-->
+          <!--document.getElementById("status").innerHTML=str;-->
+
+    <!--});-->
+    <!--}-->
+    <!--function getPhoto()-->
+    <!--{-->
+      <!--FB.api('/me/picture?type=normal', function(response) {-->
+
+          <!--var str="<br/><b>Pic</b> : <img src='"+response.data.url+"'/>";-->
+          <!--document.getElementById("status").innerHTML+=str;-->
+
+    <!--});-->
+
+    <!--}-->
+    <!--function Logout()-->
+    <!--{-->
+        <!--FB.logout(function(){document.location.reload();});-->
+    <!--}-->
+
+  <!--// Load the SDK asynchronously-->
+  <!--(function(d){-->
+     <!--var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];-->
+     <!--if (d.getElementById(id)) {return;}-->
+     <!--js = d.createElement('script'); js.id = id; js.async = true;-->
+     <!--js.src = "//connect.facebook.net/en_US/all.js";-->
+     <!--ref.parentNode.insertBefore(js, ref);-->
+   <!--}(document));-->
+
+<!--</script>-->
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=272396783170710";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+	<div class="col-sm-12 col-md-12 main">
       <form class="form-signin" method="post" action="{% url 'login' %}">
       	{% csrf_token %}
-        <h2 class="form-signin-heading">Please sign in</h2>
+		<img class="img-responsive" src="/static/seekylogo.png">
+        <h2 class="form-signin-heading">Please Login</h2>
+
 
         {% if form.errors %}
 			<p>Your username and password didn't match. Please try again.</p>
@@ -22,18 +125,28 @@
 			{% if user.is_authenticated %}
 				<p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
 			{% else %}
-				<p>Please login to see this page.</p>
+				<p></p>
 			{% endif %}
 		{% endif %}
+
+		  <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+
+		<a href="{% url 'social:begin' 'facebook' %}">
+			<img class=social-icns" href="{% url 'social:begin' 'facebook' %}" src="/static/loginwithfb.png" width="300" class="img-responsive center-block">
+		</a>
+  		<h1>	</h1>
 
 
         <label for="{{ form.username.id_for_label }}" class="sr-only">Username</label>
         {{ form.username }}
         <label for="{{ form.password.id_for_label }}" class="sr-only">Password</label>
         {{ form.password }}
-        <button class="btn btn-lg btn-success btn-block" type="submit" value="Login">Sign in</button>
+
+
+        <button class="btn btn-lg btn-success btn-block" type="submit" value="Login">Login</button>
         <input type="hidden" name="next" value="{{ next }}"/>
       </form>
+
 
     </div> 
 

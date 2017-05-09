@@ -50,29 +50,29 @@
                                         </div>
 
 
-                                                   <div class="collapse" id="collapseExample{{note.id}}">
+                                        <div class="collapse" id="collapseExample{{note.id}}">
 
 
-                                                            <form class="card" method="POST">
-                                                                <div class="card-content">
-                                                                    <div class="row">
-                                                                        {%csrf_token%}
-                                                                        <!--<label for="title" style="color:#337ab7;">&nbsp;&nbsp;&nbsp;&nbsp;Title: </label>-->
-                                                                        <!--<input id="title" type="text" name="title" style="background-color:white;color:#337ab7;">-->
-                                                                        <input type="hidden" name="post_type" value="edit">
-                                                                        <input type="hidden" name="noteid" value="{{ note.id }}">
-                                                                        <textarea class="summernote" name="notetext" id="notetext" rows="{% widthratio note.note_text|length 120 1 %}">{{note.note_text}}</textarea>
+                                                <form class="card" method="POST">
+                                                    <div class="card-content">
+                                                        <div class="row">
+                                                            {%csrf_token%}
+                                                            <!--<label for="title" style="color:#337ab7;">&nbsp;&nbsp;&nbsp;&nbsp;Title: </label>-->
+                                                            <!--<input id="title" type="text" name="title" style="background-color:white;color:#337ab7;">-->
+                                                            <input type="hidden" name="post_type" value="edit">
+                                                            <input type="hidden" name="noteid" value="{{ note.id }}">
+                                                            <textarea class="summernote" name="notetext" id="notetext" rows="{% widthratio note.note_text|length 120 1 %}">{{note.note_text}}</textarea>
 
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        &nbsp;&nbsp;&nbsp;
-                                                                        <button type="submit" class="btn btn-primary">Save</button>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
+                                                        </div>
+                                                        <div class="row">
+                                                            &nbsp;&nbsp;&nbsp;
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
 
 
-                                                </div>
+                                        </div>
 
 
 
@@ -93,7 +93,7 @@
                                     <!--Owner profile-->
 
                                     <a href="/profile/{{ owner.id }}/">
-                                        Authored by {{owner.0}}
+                                        Authored by {{owner.0.get_full_name|default:owner.0}}
                                     </a>
                                     &nbsp;&nbsp;Tags:&nbsp;
 
@@ -119,89 +119,125 @@
 
                                 </div>
 
-                                <!--right footer to add permissions -->
+
+                                <!--right footer -->
 
                                 <div class ="col-lg-1 col-md-2 col-sm-2 col-xs-2">
+                                    <!-- DELETE NOTE-->
+                                    <a data-toggle="collapse" href="#delnote{{note.id}}">
+                                        <span class="pull-right"><i style="font-size:1.5em;" class="glyphicon glyphicon-trash"></i></span>
+                                    </a>
+                                    <!-- Add permissions -->
                                     <a data-toggle="collapse" href="#ppladd{{note.id}}">
                                         <span class="pull-right"><i style="font-size:1.5em;" class="glyphicon glyphicon-share"></i></span>
                                     </a>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
 
-                            <!--toggle stuff-->
+                    <!--toggle stuff-->
 
 
-                            <!--form for adding tag-->
-                            <div class ="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="collapse" id="tagadd{{note.id}}">
-                                    <div class="panel-footer">
+                    <!--form for adding tag-->
+                        <div class="collapse" id="tagadd{{note.id}}">
+                            <div class="panel-footer">
 
-                                                    <form class="card" method="POST">
-                                                        <div class="card-content">
-                                                            <div class="row">
-                                                                {%csrf_token%}
-                                                                <input type="hidden" name="post_type" value="tag">
-                                                                <input type="hidden" name="noteid" value="{{ note.id }}">
-                                                                <label for="title" style="color:#337ab7;">&nbsp;&nbsp;&nbsp;&nbsp;Tag: </label>
-                                                                <input id="title" type="text" name="tagtext" style="background-color:white;color:#337ab7;">
-                                                            </div>
-                                                            <div class="row">
-                                                                &nbsp;&nbsp;&nbsp;
-                                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
+                                <form class="card" method="POST">
+                                    <div class="card-content">
+                                        <div class="row">
+                                            {%csrf_token%}
+                                            <input type="hidden" name="post_type" value="tag">
+                                            <input type="hidden" name="noteid" value="{{ note.id }}">
+                                            <label for="title" style="color:#337ab7;">&nbsp;&nbsp;&nbsp;&nbsp;Tag: </label>
+                                            <input id="title" type="text" name="tagtext" style="background-color:white;color:#337ab7;">
+                                        </div>
+                                        <div class="row">
+                                            &nbsp;&nbsp;&nbsp;
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+
+                    <!--form for adding permissions-->
+                        <div class="collapse" id="ppladd{{note.id}}">
+                            <div class="panel-footer">
+
+                                <form class="card" method="POST">
+                                    <div class="card-content">
+                                        <div class="row">
+                                            {%csrf_token%}
+                                            <input type="hidden" name="post_type" value="ppl">
+                                            <input type="hidden" name="noteid" value="{{ note.id }}">
+
+                                            <!--person to authorize-->
+                                            <label for="person" style="color:#337ab7;">&nbsp;&nbsp;&nbsp;&nbsp;Authorize </label>
+                                            <select class="selectpicker" id="person" name="person" title="choose a person">
+                                                {% for ppl in all_users %}
+                                                    <option value="{{ ppl.id }}">{{ ppl.get_full_name|default:ppl.username }}</option>
+                                                {% endfor %}
+                                            </select>
+
+                                            <!--authorization type-->
+                                            <label for="authtype" style="color:#337ab7;"> to </label>
+                                            <select class="selectpicker" id="authtype" name="authtype" title="choose a authtype">
+                                                    <option value="0">Read</option>
+                                                    <option value="1">Write</option>
+                                                    <option value="2">Comment</option>
+                                            </select>
+
+
+                                        </div>
+                                        <div class="row">
+                                            &nbsp;&nbsp;&nbsp;
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+
+                    <!-- form for deleting stuff -->
+                    <!--toggle delete-->
+                    <div class="collapse" id="delnote{{note.id}}">
+                        <div class="panel-footer">
+
+                            <form class="card" method="POST">
+                                <div class="card-content">
+                                    <div class="row">
+                                        {%csrf_token%}
+                                        <input type="hidden" name="post_type" value="del">
+                                        <input type="hidden" name="noteid" value="{{ note.id }}">
+
+
+                                        <!--Delete Text-->
+                                        <label for="person" style="color:#337ab7;">&nbsp;&nbsp;&nbsp;&nbsp;Delete this note? </label>
+
+                                    </div>
+                                    <div class="row">
+                                        &nbsp;&nbsp;&nbsp;
+                                        <button type="submit" class="btn btn-success">YES</button>
+                                        <button class="btn btn-danger" data-toggle="collapse" href="#delnote{{note.id}}">
+                                            NO
+                                        </button>
 
                                     </div>
                                 </div>
-                            </div>
-
-                            <!--form for adding permissions-->
-
-                            <div class ="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="collapse" id="ppladd{{note.id}}">
-                                    <div class="panel-footer">
-
-                                                    <form class="card" method="POST">
-                                                        <div class="card-content">
-                                                            <div class="row">
-                                                                {%csrf_token%}
-                                                                <input type="hidden" name="post_type" value="ppl">
-                                                                <input type="hidden" name="noteid" value="{{ note.id }}">
-
-                                                                <!--person to authorize-->
-                                                                <label for="person" style="color:#337ab7;">&nbsp;&nbsp;&nbsp;&nbsp;Authorize </label>
-                                                                <select class="selectpicker" id="person" name="person" title="choose a person">
-                                                                    {% for ppl in all_users %}
-                                                                        <option value="{{ ppl.id }}">{{ ppl.username }}</option>
-                                                                    {% endfor %}
-                                                                </select>
-
-                                                                <!--authorization type-->
-                                                                <label for="authtype" style="color:#337ab7;"> to </label>
-                                                                <select class="selectpicker" id="authtype" name="authtype" title="choose a authtype">
-                                                                        <option value="0">Read</option>
-                                                                        <option value="1">Write</option>
-                                                                        <option value="2">Comment</option>
-                                                                </select>
-
-
-                                                            </div>
-                                                            <div class="row">
-                                                                &nbsp;&nbsp;&nbsp;
-                                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end toggle stuff-->
+                            </form>
 
                         </div>
                     </div>
+                    <!--end toggle stuff-->
+
+
+
 
                 </div>
             </div>
