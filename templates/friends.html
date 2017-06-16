@@ -21,39 +21,49 @@ with access token {{ social_user.access_token }}
       xfbml      : true,
       version    : 'v2.9'
     });
+
     <!--FB.ui(-->
      <!--{-->
       <!--method: 'share',-->
       <!--href: 'https://developers.facebook.com/docs/'-->
     <!--}, function(response){});-->
-    FB.api('/me/picture?type=normal', function(response) {
+
+    FB.api('/{{ social_user.uid }}/picture?type=normal', function(response) {
 
           var str="<br/><b>Pic</b> : <img src='"+response.data.url+"'/>";
           document.getElementById("profilepic").innerHTML+=str;
+          document.getElementById("profilepic").innerHTML+="<br>hello";
 
     });
-    FB.Event.subscribe('auth.authResponseChange', function(response)
-    {
-     if (response.status === 'connected')
-    {
-        document.getElementById("profilepic").innerHTML +=  "<br>Connected to Facebook";
-        //SUCCESS
 
-    }
-    else if (response.status === 'not_authorized')
-    {
-        document.getElementById("profilepic").innerHTML +=  "<br>Failed to Connect";
+    FB.api('/{{ social_user.uid }}/friends' , function(response) {
+        document.getElementById("profilepic").innerHTML+="<br>FRIENDS";
+        var num_friends = response.summary;
+        document.getElementById("profilepic").innerHTML+=num_friends;
+        for (var i = 0; i < num_friends; i++) {
+            document.getElementById("profilepic").innerHTML+="<br>GOt FRIEND";
 
-        //FAILED
-    } else
-    {
+        }
+        for (var name in response.data) {
+
+            document.getElementById("profilepic").innerHTML+="<br>GOt FRIEND";
+
+        }
+
+    });
+
+    FB.getLoginStatus(function(response) {
+    document.getElementById("profilepic").innerHTML +=  "<br>hi3";
+      if (response.status === 'connected') {
+        document.getElementById("profilepic").innerHTML +=  "<br>Logged In";
+      }
+      else {
+        FB.login();
         document.getElementById("profilepic").innerHTML +=  "<br>Logged Out";
-
-        //UNKNOWN ERROR
-    }
+      }
     });
+    document.getElementById("profilepic").innerHTML +=  "<br>Log";
 
-    };
     FB.AppEvents.logPageView();
   };
 
